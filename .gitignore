@@ -65,6 +65,10 @@ node_modules/
 dist/
 build/
 
+#scripts
+scripts/multi-app-build.js
+scripts/simple-firebase-build.js
+
 # Firebase cache
 .firebase/
 firebase-debug.log*
@@ -106,6 +110,6 @@ js/config/firebase-api-config.js
 backup/
 andstu/
 
-scripts/
 
+#txt
 readme.txt
