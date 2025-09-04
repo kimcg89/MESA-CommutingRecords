@@ -138,15 +138,11 @@
     <script src="js/report/monthly-report-core.js"></script>
 
     <!-- work-report 전용 스타일/스크립트 (2025-09-01 15:00 KST 생성됨) -->
-    
 
     <script src="js/work-report/work-report-core.js" defer></script>
     <script src="js/work-report/work-report-adapter.js" defer></script>
     <script src="js/work-report/work-report-ui.js" defer></script>
-    <script
-      src="js/work-report/work-report-integration.js"
-      defer
-    ></script>
+    <script src="js/work-report/work-report-integration.js" defer></script>
 
     <!-- 잔량 관리 파일 -->
     <script src="js/leave/leave-balance.js"></script>
@@ -741,43 +737,56 @@
       </div>
 
       <!-- Work Report Modal (2025-09-01 15:00 KST 생성됨) -->
-<div class="work-report-overlay" id="work-report-overlay" style="display:none"></div>
-<div class="work-report-modal" id="work-report-modal" style="display:none">
-  <div class="wr-header">
-    <button class="wr-nav" id="wr-year-prev" aria-label="이전 연도">◀</button>
-    <h3 class="wr-title">근무현황 <span id="wr-year-label">2025</span></h3>
-    <button class="wr-nav" id="wr-year-next" aria-label="다음 연도">▶</button>
-    <button class="wr-close" id="wr-close" aria-label="닫기">×</button>
-  </div>
+      <div
+        class="work-report-overlay"
+        id="work-report-overlay"
+        style="display: none"
+      ></div>
+      <div
+        class="work-report-modal"
+        id="work-report-modal"
+        style="display: none"
+      >
+        <div class="wr-header">
+          <button class="wr-nav" id="wr-year-prev" aria-label="이전 연도">
+            ◀
+          </button>
+          <h3 class="wr-title">
+            근무현황 <span id="wr-year-label">2025</span>
+          </h3>
+          <button class="wr-nav" id="wr-year-next" aria-label="다음 연도">
+            ▶
+          </button>
+          <button class="wr-close" id="wr-close" aria-label="닫기">×</button>
+        </div>
 
-  <div class="wr-content">
-    <!-- KPI 4 카드 -->
-    <section class="wr-kpis">
-      <div class="wr-kpi k-total">
-        <div class="k-label">총 근무시간</div>
-        <div class="k-value" id="wr-kpi-total">0:00</div>
-      </div>
-      <div class="wr-kpi k-avg">
-        <div class="k-label">월 평균 근무시간</div>
-        <div class="k-value" id="wr-kpi-avg">0:00</div>
-      </div>
-      <div class="wr-kpi k-comp">
-        <div class="k-label">총 누적 보상휴가</div>
-        <div class="k-value" id="wr-kpi-comp">0일</div>
-      </div>
-      <div class="wr-kpi k-annual">
-        <div class="k-label">사용 연차휴가</div>
-        <div class="k-value" id="wr-kpi-annual">0일</div>
-      </div>
-    </section>
+        <div class="wr-content">
+          <!-- KPI 4 카드 -->
+          <section class="wr-kpis">
+            <div class="wr-kpi k-total">
+              <div class="k-label">총 근무시간</div>
+              <div class="k-value" id="wr-kpi-total">0:00</div>
+            </div>
+            <div class="wr-kpi k-avg">
+              <div class="k-label">월 평균 근무시간</div>
+              <div class="k-value" id="wr-kpi-avg">0:00</div>
+            </div>
+            <div class="wr-kpi k-comp">
+              <div class="k-label">총 누적 보상휴가</div>
+              <div class="k-value" id="wr-kpi-comp">0일</div>
+            </div>
+            <div class="wr-kpi k-annual">
+              <div class="k-label">사용 연차휴가</div>
+              <div class="k-value" id="wr-kpi-annual">0일</div>
+            </div>
+          </section>
 
-    <!-- 월별 카드 리스트 -->
-    <section class="wr-months" id="wr-months-list">
-      <!-- JS로 1월 ~ 마지막 유효월까지 동적 렌더 -->
-    </section>
-  </div>
-</div>
-
+          <!-- 월별 카드 리스트 -->
+          <section class="wr-months" id="wr-months-list">
+            <!-- JS로 1월 ~ 마지막 유효월까지 동적 렌더 -->
+          </section>
+        </div>
+      </div>
     </div>
 
     <!-- 로그인 페이지 -->
