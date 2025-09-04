@@ -1,0 +1,29 @@
+{
+  "name": "commuting-records",
+  "version": "1.0.0",
+  "description": "출퇴근 기록 관리 시스템",
+  "scripts": {
+    "dev": "npx live-server public/user-app --port=3000 --host=localhost",
+    "dev:user": "npx live-server public/user-app --port=3000 --host=localhost",
+    "dev:admin": "npx live-server public/admin-app --port=3001 --host=localhost",
+    "dev:python": "cd public/user-app && python -m http.server 3000",
+    "dev:python:user": "cd public/user-app && python -m http.server 3000",
+    "dev:python:admin": "cd public/admin-app && python -m http.server 3001",
+    
+    "firebase:serve": "firebase serve --only hosting",
+    "firebase:build": "node scripts/multi-app-build.js",
+    "firebase:build:user": "node scripts/multi-app-build.js user-app",
+    "firebase:build:admin": "node scripts/multi-app-build.js admin-app",
+    "firebase:deploy": "npm run firebase:build && firebase deploy",
+    "firebase:deploy:user": "npm run firebase:build:user && firebase deploy --only hosting:user",
+    "firebase:deploy:admin": "npm run firebase:build:admin && firebase deploy --only hosting:admin",
+    
+    "firebase:serve:dist": "npm run firebase:build && firebase serve --only hosting --public dist",
+    "functions:serve": "firebase emulators:start --only functions",
+    "functions:deploy": "firebase deploy --only functions"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "dependencies": {}
+}

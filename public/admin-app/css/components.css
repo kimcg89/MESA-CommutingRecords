@@ -1,0 +1,232 @@
+/* 공통 컴포넌트 스타일 - 버튼, 폼, 검색 등 - 2025.12.20 생성 */
+
+/* ==================== 버튼 스타일 ==================== */
+
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--color-gray-300);
+    color: var(--color-gray-700);
+}
+
+.btn-outline:hover {
+    background-color: var(--color-gray-50);
+    border-color: var(--color-gray-400);
+}
+
+.btn-success {
+    background-color: var(--color-success);
+    border-color: var(--color-success);
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #059669;
+    border-color: #059669;
+}
+
+.btn-sm {
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+/* ==================== 폼 스타일 ==================== */
+
+.form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--color-gray-700);
+}
+
+.form-control, .form-select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--color-gray-300);
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus, .form-select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* ==================== 검색 박스 스타일 ==================== */
+
+.search-box {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 40px 10px 12px;
+    border: 1px solid var(--color-gray-300);
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    background: #ffffff;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.search-box input::placeholder {
+    color: var(--color-gray-400);
+    font-style: italic;
+}
+
+.search-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-gray-500);
+    pointer-events: none;
+    font-size: 16px;
+}
+
+/* ==================== 필터 상태 표시 ==================== */
+
+.filter-status {
+    margin-bottom: 12px;
+    padding: 10px 12px;
+    background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%);
+    border: 1px solid #03a9f4;
+    border-radius: 8px;
+    font-size: 12px;
+    backdrop-filter: blur(8px);
+}
+
+.filter-active {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #0277bd;
+    font-weight: 500;
+}
+
+.clear-filter-btn {
+    background: #ffffff;
+    border: 1px solid #03a9f4;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 11px;
+    color: #0277bd;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.clear-filter-btn:hover {
+    background: #03a9f4;
+    color: white;
+    transform: scale(1.05);
+}
+
+.filter-help-text {
+    font-size: 11px;
+    color: var(--color-gray-500);
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: rgba(59, 130, 246, 0.05);
+    border-radius: 6px;
+    font-style: italic;
+    border-left: 3px solid var(--color-primary);
+}
+
+/* ==================== Firebase 로그인/인증 관련 스타일 ==================== */
+
+.login-container, .signup-container, .reset-password-container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.login-header, .signup-header, .reset-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.login-error, .signup-error, .reset-error {
+    background-color: #fee;
+    border: 1px solid #fcc;
+    color: #c33;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.reset-success {
+    background-color: #efe;
+    border: 1px solid #cfc;
+    color: #363;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+}

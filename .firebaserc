@@ -1,5 +1,20 @@
 {
   "projects": {
-    "default": "mesa-commutingrecords"
-  }
+    "default": "mesa-commutingrecords",
+    "development": "mesa-commutingrecords",
+    "production": "mesa-commutingrecords"
+  },
+  "targets": {
+    "mesa-commutingrecords": {
+      "hosting": {
+        "user": [
+          "mesa-attend-u"
+        ],
+        "admin": [
+          "mesa-attend-m"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

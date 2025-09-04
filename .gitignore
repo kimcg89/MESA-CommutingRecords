@@ -4,13 +4,6 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-firebase-debug.log*
-firebase-debug.*.log*
-
-# Firebase cache
-.firebase/
-
-# Firebase config
 
 # Uncomment this if you'd like others to create their own Firebase project.
 # For a team working on the same Firebase project(s), it is recommended to leave
@@ -62,8 +55,55 @@ node_modules/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
+# Environment variables (보안상 Git에서 제외)
 .env
+.env.local
+.env.production
+.env.firebase
+
+# Build outputs
+dist/
+build/
+
+# Firebase cache
+.firebase/
+firebase-debug.log*
+firebase-debug.*.log*
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
 
 # dataconnect generated files
 .dataconnect
+
+# Firebase API 설정 파일 (보안상 Git에서 제외) (2025년 8월 14일 업데이트됨)
+# User App
+public/user-app/js/config/firebase-api-config.js
+public/user-app/js/config/firebase-api-config.dev.js
+public/user-app/js/config/naver-api-config.js
+# Admin App API 설정
+public/admin-app/js/config/firebase-api-config.js
+public/admin-app/js/config/firebase-api-config.dev.js
+public/admin-app/js/config/naver-api-config.js
+
+# Admin App  
+public/admin-app/admin-firebase.js
+
+# Dist (빌드 결과물은 어차피 dist/ 전체가 제외됨)
+# dist/user-app/js/config/firebase-api-config.js
+# dist/admin-app/admin-firebase.js
+
+# Legacy (기존 경로들 - 혹시 몰라서 유지)
+public/js/config/firebase-api-config.js
+js/config/firebase-api-config.js
+
+# backup
+backup/
+andstu/
+
+readme.txt

@@ -1,0 +1,402 @@
+/* 조직도 전용 스타일 - 사용자 아이템, 부서, 필터 등 - 2025.12.20 생성 */
+
+/* ==================== 부서 헤더 스타일 ==================== */
+
+.department-header,
+.sub-department-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    margin: 6px 0 3px 0;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.department-header {
+    background: linear-gradient(135deg, var(--color-gray-50) 0%, #e2e8f0 100%);
+    border: 1px solid #cbd5e1;
+    font-size: 14px;
+    margin: 4px 0 2px 0;
+    padding: 8px 12px; 
+}
+
+.sub-department-header {
+    background: linear-gradient(135deg, #fefefe 0%, var(--color-gray-100) 100%);
+    border: 1px solid var(--color-gray-200);
+    font-size: 13px;
+    opacity: 0.95;
+    margin: 2px 0 2px 10px;
+    padding: 6px 10px; 
+}
+
+.department-header.current-user-dept {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: white;
+    border: 1px solid var(--color-primary-dark);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.sub-department-header.current-user-dept {
+    background: linear-gradient(135deg, var(--color-primary-light) 0%, #bfdbfe 100%);
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary-dark);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+}
+
+.department-title {
+    display: flex;
+    align-items: center;
+}
+
+.department-name {
+    font-weight: 600;
+}
+
+.department-count {
+    background: var(--color-gray-500);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 14px;
+    font-size: 11px;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+}
+
+.current-user-dept .department-count {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.sub-department-header.current-user-dept .department-count {
+    background: var(--color-primary);
+    color: white;
+}
+
+.current-dept-badge {
+    font-size: 14px;
+    margin-left: 6px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* ==================== 멤버 아이템 스타일 ==================== */
+
+.user-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px !important;
+    margin: 2px 0 2px 20px !important;
+    border-radius: 8px;
+    min-height: auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    cursor: pointer;
+    user-select: none; /* 텍스트 선택 방지 */
+}
+
+.user-item:hover {
+    background: rgba(59, 130, 246, 0.05);
+    transform: translateX(3px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ==================== 멤버 컨트롤 (체크박스) ==================== */
+
+.member-controls {
+    display: flex !important;
+    align-items: center !important;
+    margin-right: 6px !important;
+    min-width: 24px !important;
+    max-width: 24px !important;
+    flex-shrink: 0 !important;
+    padding: 0 !important;
+    pointer-events: auto !important;
+    z-index: 10 !important;
+}
+
+.member-filter-checkbox {
+    display: block !important;
+    visibility: visible !important;
+    width: 16px !important;
+    height: 16px !important;
+    cursor: pointer !important;
+    accent-color: var(--color-primary) !important;
+    margin: 0 !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 9999 !important;
+    -webkit-appearance: checkbox !important;
+    appearance: checkbox !important;
+}
+
+.member-filter-checkbox:hover {
+    transform: scale(1.15);
+}
+
+.member-filter-checkbox:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* ==================== 사용자 아바타 ==================== */
+
+.user-avatar {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 13px !important;
+    color: white;
+    margin-right: 8px !important;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.user-item:hover .user-avatar {
+    transform: scale(1.05);
+}
+
+/* ==================== 사용자 정보 ==================== */
+
+.user-info {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 14px !important;
+    color: var(--color-gray-800);
+    margin-bottom: 2px !important;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    gap: 6px;
+    line-height: 1.15;
+    text-overflow: ellipsis;
+}
+
+.user-position {
+    font-size: 10px;
+    color: var(--color-gray-500);
+    margin-bottom: 1px;
+    line-height: 1.2;
+}
+
+.user-duty {
+    font-size: 9px !important;
+    color: var(--color-gray-400);
+    line-height: 1.2;
+}
+
+/* ==================== 특별 사용자 스타일 ==================== */
+
+.user-item.boss-user {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 1px solid var(--color-warning);
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+}
+
+.user-item.boss-user:hover {
+    background: linear-gradient(135deg, #fde68a 0%, #fbbf24 100%);
+    transform: translateX(4px);
+}
+
+.user-item.current-user {
+    background: linear-gradient(135deg, var(--color-primary-light) 0%, #bfdbfe 100%);
+    border: 1px solid var(--color-primary);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+}
+
+.user-item.current-user:hover {
+    background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%);
+    transform: translateX(4px);
+}
+
+.user-item.current-user .user-name {
+    font-weight: 700;
+    color: var(--color-primary-dark);
+}
+
+.user-item.key-manager {
+    background: linear-gradient(135deg, var(--color-success-light) 0%, #a7f3d0 100%);
+    border: 1px solid var(--color-success);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+}
+
+.user-item.key-manager:hover {
+    background: linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%);
+    transform: translateX(4px);
+}
+
+.user-item.filtered-member {
+    background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+    border: 1px solid #ec4899;
+    box-shadow: 0 3px 12px rgba(236, 72, 153, 0.2);
+    animation: filterPulse 2s ease-in-out;
+}
+
+.user-item.filtered-member:hover {
+    background: linear-gradient(135deg, #fbcfe8 0%, #f9a8d4 100%);
+    transform: translateX(5px);
+    box-shadow: 0 4px 16px rgba(236, 72, 153, 0.3);
+}
+
+/* ==================== 배지 스타일 ==================== */
+
+.boss-badge,
+.key-manager-badge,
+.current-user-badge {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    z-index: 1;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.current-user-badge {
+    font-size: 16px;
+}
+
+/* ==================== 사용자 색상 팔레트 ==================== */
+
+.user-color-0 { background: linear-gradient(135deg, var(--color-danger) 0%, #dc2626 100%); }
+.user-color-1 { background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); }
+.user-color-2 { background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%); }
+.user-color-3 { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); }
+.user-color-4 { background: linear-gradient(135deg, var(--color-info) 0%, #0891b2 100%); }
+.user-color-5 { background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%); }
+.user-color-6 { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); }
+.user-color-7 { background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); }
+.user-color-8 { background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); }
+.user-color-9 { background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%); }
+.user-color-10 { background: linear-gradient(135deg, var(--color-success) 0%, #059669 100%); }
+.user-color-11 { background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%); }
+.user-color-12 { background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); }
+.user-color-13 { background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); }
+.user-color-14 { background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%); }
+
+/* ==================== 특별 애니메이션 ==================== */
+
+@keyframes filterPulse {
+    0% { 
+        box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4);
+        transform: scale(1);
+    }
+    50% { 
+        box-shadow: 0 0 0 10px rgba(236, 72, 153, 0.1);
+        transform: scale(1.02);
+    }
+    100% { 
+        box-shadow: 0 0 0 0 rgba(236, 72, 153, 0);
+        transform: scale(1);
+    }
+}
+
+/* ==================== 검색 결과 하이라이트 ==================== */
+
+.user-item.search-highlight {
+    background: linear-gradient(135deg, #fef9c3 0%, #fde047 30%, #facc15 100%);
+    border: 1px solid #eab308;
+    animation: searchHighlight 1s ease-in-out;
+}
+
+@keyframes searchHighlight {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+/* ==================== 빈 검색 결과 메시지 ==================== */
+
+.no-search-results {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--color-gray-500);
+    font-style: italic;
+}
+
+.no-search-results::before {
+    content: "🔍";
+    display: block;
+    font-size: 32px;
+    margin-bottom: 12px;
+    opacity: 0.7;
+}
+
+/* ==================== 드래그 금지 ==================== */
+
+.member-controls,
+.member-filter-checkbox {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+/* ==================== 접근성 개선 ==================== */
+
+.member-filter-checkbox:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.user-item:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* 최종 체크박스 강제 표시 - 최고 우선순위 */
+input.member-filter-checkbox,
+.member-controls input[type="checkbox"],
+.user-item input[type="checkbox"] {
+    display: block !important;
+    visibility: visible !important;
+    width: 18px !important;
+    height: 18px !important;
+    opacity: 1 !important;
+    margin: 0 8px 0 0 !important;
+    position: relative !important;
+    z-index: 99999 !important;
+    -webkit-appearance: checkbox !important;
+    appearance: checkbox !important;
+    cursor: pointer !important;
+    accent-color: var(--color-primary) !important;
+    background: white !important;
+    border: 2px solid var(--color-gray-300) !important;
+}
+
+.member-controls {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    margin-right: 10px !important;
+    min-width: 28px !important;
+    overflow: visible !important;
+    position: relative !important;
+}
+
+.user-item .member-controls {
+    flex-shrink: 0 !important;
+    pointer-events: auto !important;
+    user-select: none !important;
+}

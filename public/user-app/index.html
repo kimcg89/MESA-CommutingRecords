@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>출퇴근 기록기</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#1a73e8" />
+    <!-- Firebase API 설정 파일 (조건부 로딩) -->
+    <script>
+      // 개발/배포 환경에 따른 설정 파일 로딩 (2025년 8월 5일 20:45 수정됨)
+      (function () {
+        // 개발 환경 감지 로직 개선 (2025년 8월 5일 20:45 수정됨)
+        const isLocalhost =
+          window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1";
+        const isFirebaseServe = window.location.port === "5000";
+        const isLiveServer =
+          window.location.port === "5501" || window.location.port === "3000";
+
+        // 개발 환경: Firebase serve 또는 Live Server
+        const isDevelopment = isLocalhost && (isFirebaseServe || isLiveServer);
+
+        const scriptSrc = isDevelopment
+          ? "js/config/firebase-api-config.dev.js" // 개발용
+          : "js/config/firebase-api-config.js"; // 배포용 (빌드 시 생성)
+
+        console.log("🔧 Firebase 설정 로딩:", scriptSrc);
+        console.log("📍 환경 감지:", {
+          hostname: window.location.hostname,
+          port: window.location.port,
+          isDevelopment: isDevelopment,
+          isFirebaseServe: isFirebaseServe,
+          isLiveServer: isLiveServer,
+        });
+
+        // 동기식 스크립트 추가 (2025년 8월 5일 20:35 수정됨)
+        document.write('<script src="' + scriptSrc + '"><\/script>');
+      })();
+    </script>
+    <!-- 전역변수 설정 파일 -->
+    <script src="js/constants/userData.js"></script>
+    <script src="js/constants/holidays.js"></script>
+    <!-- 중복 제거: Firebase API 설정 파일은 위에서 조건부로 로드됨 -->
+    <!-- Firebase 설정 파일 -->
+    <script src="js/config/firebase-config.js"></script>
+    <!-- 하이브리드 Firebase API -->
+    <script src="js/config/firebase-api.js"></script>
+    <!-- 네이버 지도 API 로드 (2025년 8월 6일 추가됨) -->
+    <script>
+      // 네이버 지도 API를 동적으로 로드
+      function loadNaverMapsAPI() {
+        return new Promise((resolve, reject) => {
+          if (typeof naver !== "undefined") {
+            resolve();
+            return;
+          }
+
+          const script = document.createElement("script");
+          script.src =
+            "https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=dfu49htc2u&submodules=geocoder";
+          script.onload = resolve;
+          script.onerror = reject;
+          document.head.appendChild(script);
+        });
+      }
+
+      // 페이지 로드 후 API 로드
+      document.addEventListener("DOMContentLoaded", () => {
+        loadNaverMapsAPI()
+          .then(() => {
+            console.log("네이버 지도 API 로드 완료");
+            // 여기서 attendance 초기화
+          })
+          .catch((error) => {
+            console.error("네이버 지도 API 로드 실패:", error);
+          });
+      });
+    </script>
+    <!-- 네이버 API 설정 로드 -->
+    <script src="./js/config/naver-api-config.js"></script>
+    <!-- 시간 유틸리티 파일 -->
+    <script src="js/utils/time-utils.js"></script>
+    <!-- 1. 핵심 모달 시스템 -->
+    <script src="js/ui/modals/core/modalCore.js"></script>
+    <script src="js/ui/modals/core/modalUtils.js"></script>
+
+    <!-- 2. 기본 모달들 -->
+    <script src="js/ui/modals/notice/noticeModal.js"></script>
+    <script src="js/ui/modals/attendance/attendanceModal.js"></script>
+
+    <!-- 3. 근무구분 관련 모달들 -->
+    <script src="js/ui/modals/workType/workTypeModal.js"></script>
+    <script src="js/ui/modals/workType/officeWorkModal.js"></script>
+    <script src="js/ui/modals/workType/fieldWorkModal.js"></script>
+    <script src="js/ui/modals/workType/remoteWorkModal.js"></script>
+
+    <!-- 4. 통합 진입점 (마지막) -->
+    <script src="js/ui/modal.js"></script>
+    <!-- 날짜/시간 UI 파일 -->
+    <script src="js/ui/datetime.js"></script>
+    <!-- 인증 관리 파일 -->
+    <script src="js/auth/auth.js"></script>
+    <!-- 출근/퇴근 내근설정 위치정보 파일 -->
+    <script src="js/config/office-config.js"></script>
+    <!-- 출근/퇴근 관리 파일 - 모듈화 -->
+    <script src="js/attendance/location-utils.js"></script>
+    <script src="js/attendance/work-time-calculator.js"></script>
+    <script src="js/attendance/attendance-core.js"></script>
+    <script src="js/attendance/attendance-ui.js"></script>
+    <!-- 휴가 관리 파일 -->
+    <script src="js/leave/vacation-utils.js"></script>
+    <script src="js/leave/vacation-ui.js"></script>
+    <script src="js/leave/vacation-firestore.js"></script>
+    <script src="js/leave/vacation-core.js"></script>
+
+    <!-- 잔량 관리 파일 -->
+    <script src="js/leave/leave-balance.js"></script>
+    <!-- 주간 캘린더 파일 -->
+    <script src="js/calendar/weekly-calendar.js"></script>
+    <!-- 근무 기록 파일 -->
+    <script src="js/history/work-history.js"></script>
+    <!-- 메모 관리 파일 -->
+    <script src="js/memo/memo.js"></script>
+    <!-- 알림 관리 파일 -->
+    <script src="js/notification/alarm.js"></script>
+    <!-- PWA 관리 파일 -->
+    <script src="js/pwa/pwa-handler.js"></script>
+
+    <script type="module" src="script.js" defer></script>
+  </head>
+  <body>
+    <!-- 로딩 화면 -->
+    <div
+      id="loading-screen"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      "
+    >
+      <img
+        src="./icons/icon-512x512.png"
+        alt="App Icon"
+        style="width: 220px; height: 220px"
+      />
+    </div>
+
+    <div class="container">
+      <div class="header">
+        <div class="menu">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+        <div class="logo">
+          <img src="./image/MESA-logo-white.png" alt="" />
+        </div>
+        <div class="homebtn">
+          <i class="fa-solid fa-house"></i>
+        </div>
+      </div>
+
+      <div class="bottom">
+        <div class="button" id="applyVacation">
+          <img src="./image/Airplane Square.png" alt="" />
+          <p>연차신청</p>
+        </div>
+        <div class="button">
+          <img src="./image/Edit.png" alt="" />
+          <p>연장근무신청(X)</p>
+        </div>
+        <div class="button">
+          <img src="./image/Note Favorite.png" alt="" />
+          <p>근무현황(X)</p>
+        </div>
+      </div>
+
+      <div class="home">
+        <div class="recordBtnContainer">
+          <div class="header-content">
+            <h2>출퇴근 등록</h2>
+            <div class="info-btnContainer">
+              <div class="annualLeave" id="annualLeave">
+                <p>잔여 연차 수</p>
+                <p>15일</p>
+              </div>
+              <div class="compensatoryLeave" id="compensatoryLeave">
+                <p>보유 보상휴가</p>
+                <p>0 시간</p>
+              </div>
+            </div>
+          </div>
+          <div class="headerTime">
+            <p id="current-date"></p>
+            <p id="current-time"></p>
+          </div>
+          <div class="recordBtns">
+            <div class="startBtn" id="startBtn">출근</div>
+            <div class="endBtn" id="endBtn">퇴근</div>
+          </div>
+        </div>
+        <div class="workVacBtns">
+          <div class="workRecordBtn" id="workRecordBtn">근무 이력 남기기</div>
+          <div class="vacationBtn" id="vacationBtn">보상휴가 신청</div>
+        </div>
+        <div class="workHistoryContainer">
+          <div class="history-header">
+            <h2>근무 정보</h2>
+            <span class="selected-date-display" id="selectedDateDisplay"
+              >오늘</span
+            >
+          </div>
+          <div class="history">
+            <div class="historyList" id="historyList"></div>
+          </div>
+        </div>
+        <div class="workTimeTableContainer">
+          <div class="workDuration">
+            <div><i class="fa-solid fa-caret-left"></i></div>
+            <div>2025.01.20 ~ 2025.01.26</div>
+            <div><i class="fa-solid fa-caret-right"></i></div>
+          </div>
+          <div class="monthlyCalendar">
+            <i class="fa-solid fa-calendar-days"></i>
+            <p>월간근무내역(X)</p>
+          </div>
+          <div class="weeklyTable">
+            <div class="day sunday">
+              <span class="date">4</span>
+              <span class="weekday">일</span>
+              <span class="time">-<br />-</span>
+              <span class="duration">-</span>
+              <span class="status">-</span>
+              <span class="vacation-Info">-</span>
+            </div>
+            <div class="day">
+              <span class="date">5</span>
+              <span class="weekday">월</span>
+              <span class="time">09:05<br />-</span>
+              <span class="duration">-</span>
+              <span class="status">-</span>
+              <span class="vacation-Info">-</span>
+            </div>
+            <div class="day">
+              <span class="date">6</span>
+              <span class="weekday">화</span>
+              <span class="time">-<br />-</span>
+              <span class="duration">-</span>
+              <span class="status">-</span>
+              <span class="vacation-Info">-</span>
+            </div>
+            <div class="day">
+              <span class="date">7</span>
+              <span class="weekday">수</span>
+              <span class="time">-<br />-</span>
+              <span class="duration">-</span>
+              <span class="status">-</span>
+              <span class="vacation-Info">-</span>
+            </div>
+            <div class="day">
+              <span class="date">8</span>
+              <span class="weekday">목</span>
+              <span class="time">-<br />-</span>
+              <span class="duration">-</span>
+              <span class="status">-</span>
+              <span class="vacation-Info">-</span>
+            </div>
+            <div class="day">
+              <span class="date">9</span>
+              <span class="weekday">금</span>
+              <span class="time">-<br />-</span>
+              <span class="duration">-</span>
+              <span class="status">보휴</span>
+              <span class="vacation-Info">-</span>
+            </div>
+            <div class="day saturday">
+              <span class="date">10</span>
+              <span class="weekday">토</span>
+              <span class="time">-<br />-</span>
+              <span class="duration">-</span>
+              <span class="status">-</span>
+              <span class="vacation-Info">-</span>
+            </div>
+          </div>
+          <div class="workProgressBar">
+            <div class="completed"></div>
+            <div class="remaining"></div>
+            <div class="standardLine"></div>
+          </div>
+          <div class="hours">
+            <div class="workTime">37시간</div>
+            <div class="standardTime">35</div>
+            <div class="maxTime">52</div>
+          </div>
+        </div>
+        <div class="worksMemoContainer" style="display: none">
+          <h2>근무 MEMO</h2>
+          <select class="projectSelectBox" id="projectSelectBox">
+            <option value="" disabled selected>사업명 (PJT) : 없음</option>
+            <option value="projectSelect1">프로젝트 1</option>
+            <option value="projectSelect2">프로젝트 2</option>
+          </select>
+          <div class="workKind-DateBox">
+            <select class="workSelectBox" id="workSelectBox">
+              <option value="" disabled selected>업무구분</option>
+              <option value="workSelect1">재택</option>
+              <option value="workSelect2">내근</option>
+              <option value="workSelect3">외근</option>
+            </select>
+            <select class="workDateBox" id="workDateBox">
+              <option value="" disabled selected>날짜</option>
+            </select>
+          </div>
+          <div class="workNote">
+            <span>상세내용</span>
+            <textarea id="details" placeholder=""></textarea>
+          </div>
+          <div class="memoBtn">
+            <button class="save-update" id="save-update">작성/수정</button>
+            <button class="delete" id="delete">취소</button>
+          </div>
+        </div>
+
+        <main style="display: none">
+          <div class="buttons">
+            <button id="attendance-button">출근</button>
+            <div class="alarm">
+              <div class="alarmTime">
+                <div class="alarmTimeIcone">
+                  <i class="fa-solid fa-bell"></i>
+                  <p>알람</p>
+                </div>
+                <button id="alarm-button">On</button>
+              </div>
+            </div>
+          </div>
+          <div class="buttons"></div>
+          <div class="records">
+            <h2>GPS 기록 내역</h2>
+            <ul id="gps-record-list"></ul>
+          </div>
+          <div class="records">
+            <h2>기록 내역</h2>
+            <ul id="record-list"></ul>
+          </div>
+
+          <div class="calendar">
+            <div class="calendar-header">
+              <button id="prev-month"><<</button>
+              <span id="current-month"></span>
+              <button id="next-month">>></button>
+            </div>
+            <div id="calendar-container"></div>
+          </div>
+        </main>
+      </div>
+
+      <div class="calendarPageContainer" style="display: none">
+        <div class="info-btnContainer">
+          <div class="annualLeave">
+            <p>잔여 연차 수</p>
+            <p>13.5일</p>
+          </div>
+          <div class="compensatoryLeave">
+            <p>보유 보상휴가</p>
+            <p>200 시간</p>
+          </div>
+          <div class="approvalBtn">결재상신</div>
+        </div>
+        <div class="calendarContainer">
+          <div class="monthlyProgressContainer"></div>
+          <div class="calendar-date"></div>
+          <div class="calendar"></div>
+        </div>
+        <div class="calendarWorkInfo">
+          <div class="workDate"></div>
+          <div class="startTime"></div>
+          <div class="endTime"></div>
+          <div class="vacTime"></div>
+        </div>
+      </div>
+
+      <div class="modal-overlay" id="modal-overlay"></div>
+      <div class="modal" id="vacation-modal">
+        <h3>보상 휴가 신청</h3>
+        <div
+          id="selected-date-display"
+          style="margin-bottom: 15px; font-weight: bold"
+        ></div>
+        <div>
+          <label>시작 시간:</label>
+          <select id="vacation-start-ampm">
+            <option value="AM">오전</option>
+            <option value="PM">오후</option>
+          </select>
+          <select id="vacation-start-hour"></select>
+          <select id="vacation-start-minute">
+            <option value="00">00분</option>
+            <option value="30">30분</option>
+          </select>
+        </div>
+
+        <div>
+          <label>종료 시간:</label>
+          <select id="vacation-end-ampm">
+            <option value="AM">오전</option>
+            <option value="PM">오후</option>
+          </select>
+          <select id="vacation-end-hour"></select>
+          <select id="vacation-end-minute">
+            <option value="00">00분</option>
+            <option value="30">30분</option>
+          </select>
+        </div>
+        <button id="save-vacation">저장</button>
+        <button id="cancel-vacation">취소</button>
+      </div>
+
+      <div class="modal" id="attendance-modal">
+        <button id="save-vacation">저장</button>
+        <button id="cancel-vacation">취소</button>
+      </div>
+      <div class="modal" id="notice-modal">
+        <div class="modal-content">
+          <p id="notice-message"></p>
+          <button id="close-notice">확인</button>
+        </div>
+      </div>
+
+      <div class="modal-overlay" id="modal-overlay-annual"></div>
+      <div class="modal" id="annual-vacation-modal">
+        <h3>연차 휴가 신청</h3>
+        <div>
+          <label>시작일:</label>
+          <select id="start-month"></select>
+          <select id="start-day"></select>
+          <select id="start-type">
+            <option value="full">종일</option>
+            <option value="morning">오전</option>
+            <option value="afternoon">오후</option>
+          </select>
+        </div>
+        <div>
+          <label>종료일:</label>
+          <select id="end-month"></select>
+          <select id="end-day"></select>
+          <select id="end-type">
+            <option value="full">종일</option>
+            <option value="morning">오전</option>
+            <option value="afternoon">오후</option>
+          </select>
+        </div>
+
+        <button id="save-annual-vacation">저장</button>
+        <button id="cancel-annual-vacation">취소</button>
+      </div>
+
+      <div class="modal-overlay" id="gps-loading-overlay" style="display: none">
+        <div class="modal" id="gps-loading-modal">
+          <p id="gps-loading-message">위치 정보를 가져오는 중...</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="loginSectionContainer">
+      <div class="login-container">
+        <div class="signin-section">
+          <h2>Sign In</h2>
+          <form id="login-form">
+            <div class="input-group">
+              <label for="username">UserEmail</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="UserEmail@mesa.kr"
+              />
+            </div>
+            <div class="input-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+              />
+            </div>
+            <button type="submit" class="sign-in-btn">Sign In</button>
+            <div class="remember-forgot">
+              <label
+                ><input type="checkbox" id="rememberMe" /> Remember Me</label
+              >
+              <a href="#" class="forgot-password">Forgot Password</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <button id="installButton" style="display: none">앱 설치</button>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+  </body>
+</html>

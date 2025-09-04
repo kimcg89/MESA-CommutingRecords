@@ -1,0 +1,1301 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+/*
+main {
+  display: flex;
+  width: 100%;
+} */
+
+.container {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+  width: 100%;
+  height: 100vh;
+  margin: 0 20px;
+}
+
+.header {
+  width: 100%;
+  max-width: 600px;
+  height: 45px;
+  background-color: #5b7cd1;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 0 15px;
+}
+
+.header .menu {
+  padding-top: 5px;
+}
+
+.header i {
+  font-size: 25px;
+  color: white;
+}
+
+.header img {
+  height: 38px;
+}
+
+.bottom {
+  width: 100%;
+  max-width: 600px;
+  height: 55px;
+  background-color: #5b7cd1;
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 0 40px;
+}
+
+.bottom .button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.bottom p {
+  font-size: 10px;
+}
+
+/* home css ################################################################ */
+.home {
+  width: 100%;
+  height: calc(100% - 100px);
+  position: relative;
+  top: 45px;
+}
+
+.recordBtnContainer {
+  width: calc(100% - 28px);
+  background-color: #ebedef;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  padding: 10px;
+  margin: 14px;
+  border: 0.1px solid #98cfff40;
+}
+
+/* Added styles for header-content */
+.recordBtnContainer .header-content {
+  display: flex;
+  justify-content: space-between; /* h2와 info-btnContainer 사이에 공간을 줍니다 */
+  align-items: center; /* 항목들을 수직으로 정렬합니다 */
+  width: 100%;
+  margin-bottom: 10px; /* 이 컨테이너 아래에 공간을 줍니다 */
+}
+
+.recordBtnContainer h2 {
+  font-size: 20px;
+  /* 정렬을 미세 조정해야 한다면 마진을 조절하세요 */
+  margin-right: 10px;
+}
+
+.recordBtnContainer .info-btnContainer {
+  display: flex;
+  flex-direction: row; /* 두 div를 가로로 정렬합니다 */
+  gap: 10px; /* annualLeave와 compensatoryLeave 사이의 공간 */
+  align-items: center;
+  font-weight: bold;
+}
+
+.recordBtnContainer .annualLeave,
+.recordBtnContainer .compensatoryLeave {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  border: 1px solid #0188ff;
+  /* border-radius: 5px; */
+  font-size: 10px;
+}
+
+.recordBtnContainer .headerTime {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 5px;
+  border-left: 2px solid #000;
+  padding-left: 5px;
+}
+
+.recordBtnContainer #current-date,
+.recordBtnContainer #current-time {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.recordBtnContainer .recordBtns {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  gap: 15px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.recordBtnContainer .startBtn {
+  flex: 1;
+  height: 37px;
+  background-color: #5b7cd1;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.recordBtnContainer .endBtn {
+  flex: 1;
+  height: 37px;
+  background-color: #ebedef;
+  color: #5b7cd1;
+  border: 1px solid #0188ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.workVacBtns {
+  width: calc(100% - 28px);
+  display: flex;
+  flex-direction: row;
+  margin: 14px;
+  gap: 15px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.workVacBtns .workRecordBtn {
+  flex: 1;
+  height: 49px;
+  background-color: #ebedef;
+  color: #5b7cd1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.3px solid #98cfff40;
+  cursor: pointer;
+}
+
+.workVacBtns .vacationBtn {
+  flex: 1;
+  height: 49px;
+  background-color: #ebedef;
+  color: #5b7cd1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.3px solid #98cfff40;
+  cursor: pointer;
+}
+
+.workHistoryContainer {
+  width: calc(100% - 28px);
+  /* height: 140px; */
+  background-color: #ebedef;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  padding: 10px;
+  margin: 14px;
+  border: 0.1px solid #98cfff40;
+}
+
+.workHistoryContainer h2 {
+  margin-bottom: 20px;
+}
+
+.workHistoryContainer .history {
+  position: relative;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  margin-left: 5px;
+}
+
+/* workHistoryContainer 헤더 스타일 */
+.workHistoryContainer .history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.workHistoryContainer .history-header h2 {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.workHistoryContainer .selected-date-display {
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #666;
+  padding: 4px 8px;
+  border-radius: 4px;
+  min-width: 80px;
+  text-align: center;
+}
+
+.workHistoryContainer .historyRecord {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  margin-left: 5px;
+}
+
+.workHistoryContainer .historyRecord::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 0;
+  bottom: 0;
+  width: 0.2px;
+  background-color: #60728533;
+  z-index: 0;
+}
+
+.workHistoryContainer .historyRecord .time-dot {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #5b7cd1;
+  z-index: 1;
+}
+
+.workHistoryContainer .history .timeGps {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  justify-content: start;
+  align-items: start;
+  /* position: relative; */
+  margin-left: 15px;
+}
+
+.workHistoryContainer .history .historyGps {
+  color: rgba(128, 128, 128, 0.501);
+  font-size: 10px;
+}
+
+.workHistoryContainer .history .memoBtn {
+  width: 87px;
+  height: 31px;
+  border: 1px solid #0188ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: normal;
+  color: #5b7cd1;
+  cursor: pointer;
+}
+
+.workTimeTableContainer {
+  width: calc(100% - 28px);
+  background-color: #ebedef;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin: 14px;
+  border: 0.1px solid #98cfff40;
+}
+
+.workTimeTableContainer .workDuration {
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
+}
+
+.workTimeTableContainer .workDuration i {
+  color: #5b7cd1;
+  font-size: 15px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.workTimeTableContainer .monthlyCalendar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: end;
+  align-items: center;
+  font-size: 9px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 20px;
+}
+
+.workTimeTableContainer .monthlyCalendar i {
+  font-size: 12px;
+  margin-right: 3px;
+}
+
+.workTimeTableContainer .weeklyTable {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.workTimeTableContainer .weeklyTable .day {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  width: 40px;
+}
+
+.workTimeTableContainer .weeklyTable .day .today {
+  color: #007bff;
+  font-weight: bold;
+}
+
+.workTimeTableContainer .weeklyTable .day .out {
+  color: #0188ff;
+}
+
+.workTimeTableContainer .weeklyTable .day .vac {
+  color: #e72121;
+}
+
+.workTimeTableContainer .weeklyTable .saturday .date,
+.workTimeTableContainer .weeklyTable .saturday .weekday {
+  color: #0057a4;
+}
+
+.workTimeTableContainer .weeklyTable .sunday .date,
+.workTimeTableContainer .weeklyTable .sunday .weekday,
+.workTimeTableContainer .weeklyTable .day.holiday .date,
+.workTimeTableContainer .weeklyTable .day.holiday .weekday {
+  color: #e72121;
+}
+
+.workTimeTableContainer .weeklyTable .date {
+  height: 20px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.workTimeTableContainer .weeklyTable .weekday {
+  height: 20px;
+  font-size: 12px;
+  color: #888;
+}
+
+.workTimeTableContainer .weeklyTable .time {
+  height: 30px;
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+.workTimeTableContainer .weeklyTable .duration {
+  height: 12px;
+  font-size: 10px;
+  margin: 0;
+}
+
+.workTimeTableContainer .weeklyTable .status {
+  height: 20px;
+  font-size: 10px;
+  color: #555;
+  margin-top: 5px;
+}
+
+.workTimeTableContainer .weeklyTable .vacation-Info {
+  height: 20px;
+  font-size: 10px;
+  color: #555;
+}
+
+.workTimeTableContainer .weeklyTable .vacation-Info .type-bh {
+  color: #5b7cd1;
+  font-weight: bold;
+}
+.workTimeTableContainer .weeklyTable .vacation-Info .type-rh {
+  color: #ffa500;
+  font-weight: bold;
+}
+.workTimeTableContainer .weeklyTable .vacation-Info .type-yc {
+  color: #e53935;
+  font-weight: bold;
+}
+
+.workTimeTableContainer .workProgressBar {
+  display: flex;
+  height: 10px;
+  width: 90%;
+  background: #d1d1d1;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.workTimeTableContainer .workProgressBar .completed {
+  width: 75%;
+  background: #5b7cd1;
+  border-radius: 5px;
+}
+
+.workTimeTableContainer .workProgressBar .remaining {
+  width: 25%;
+  background: #bbb;
+}
+
+.workTimeTableContainer .workProgressBar .standardLine {
+  position: absolute;
+  content: "";
+  position: absolute;
+  left: 67%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: black;
+  z-index: 0;
+}
+
+.workTimeTableContainer .hours {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  height: 15px;
+  font-size: 10px;
+  color: #555;
+  position: relative;
+}
+
+.workTimeTableContainer .hours .workTime {
+  position: absolute;
+  left: 0;
+}
+
+.workTimeTableContainer .hours .workTime .vacation-highlight {
+  color: #5b7cd1;
+  font-weight: bold;
+}
+
+.workTimeTableContainer .hours .standardTime {
+  position: absolute;
+  left: 67%;
+}
+
+.workTimeTableContainer .hours .maxTime {
+  position: absolute;
+  left: 96%;
+}
+
+.worksMemoContainer {
+  width: calc(100% - 28px);
+  background-color: #ebedef;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  padding: 10px 20px;
+  margin: 14px;
+  border: 0.1px solid #98cfff40;
+  top: 210px;
+  z-index: 2;
+  position: absolute;
+}
+
+.worksMemoContainer h2 {
+  margin-bottom: 10px;
+}
+
+.projectSelectBox {
+  width: 100%;
+  height: 37px;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.workKind-DateBox {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.workSelectBox {
+  flex: 1;
+  height: 37px;
+  font-size: 15px;
+}
+
+.workDateBox {
+  flex: 1;
+  height: 37px;
+  font-size: 15px;
+}
+
+select {
+  border: 1px solid #0188ff;
+  color: #0188ff;
+}
+
+select:focus {
+  color: black;
+}
+
+.workNote {
+  width: 100%;
+}
+
+.workNote span {
+  display: flex;
+  font-size: 15px;
+  align-items: center;
+  text-align: left;
+  margin-top: 10px;
+  margin-bottom: 3px;
+  font-size: 15px;
+  color: #0188ff;
+}
+
+.workNote textarea {
+  width: 100%;
+  height: 100px;
+  resize: none;
+  border: 1px solid #0188ff;
+}
+
+.memoBtn,
+.endModalBtn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.memoBtn button {
+  flex: 1;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.memoBtn button:hover {
+  background-color: #0056b3;
+}
+
+#save-update,
+#confirm-btn {
+  background-color: #1a73e8;
+  color: white;
+}
+
+#delete,
+#cancel-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+/* 버튼 호버 효과 */
+#save-update:hover,
+#confirm-btn:hover {
+  background-color: #0056b3;
+}
+#delete:hover,
+#cancel-btn:hover {
+  background-color: #90241c;
+}
+
+/* home css ########################################################## */
+
+/* 달력 page ############################################################# */
+.calendarPageContainer {
+  width: 100%;
+  height: calc(100% - 100px);
+  position: relative;
+  top: 45px;
+}
+
+.calendarContainer {
+  width: calc(100% - 28px);
+  background-color: #ebedef;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  padding: 10px;
+  margin: 14px;
+  border: 0.1px solid #98cfff40;
+}
+
+/* 달력 page ########################################################## */
+
+/* 기존 code ############################################################ */
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 10px;
+  gap: 20px;
+}
+
+#attendance-button {
+  flex: 1;
+  height: 65px;
+  background-color: #1a73e8;
+  color: white;
+  padding: 15px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.alarm {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.alarm button {
+  padding: 5px 5px;
+  font-size: 1.2rem;
+  margin: 0 7px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: red; /* 기본 배경색 */
+  color: white;
+}
+
+.alarm button.active {
+  background-color: red; /* "끄기" 상태 */
+}
+
+.alarm button.inactive {
+  background-color: green; /* "켜기" 상태 */
+}
+
+.alarmTime {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px 0;
+  background-color: #efefef;
+  border-radius: 5px;
+}
+
+.alarmTimeIcone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2px;
+  text-align: center;
+}
+
+.alarm i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 20px;
+  font-size: 1.2rem;
+}
+.alarm p {
+  margin-top: 3px;
+}
+
+.alarm button {
+  padding: 10px 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#vacation-button,
+#gpsTestBtn {
+  flex: 1;
+  background-color: #1a73e8;
+  color: white;
+  padding: 15px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.records {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  height: 100%;
+  min-height: 20px;
+}
+
+#record-list {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+}
+
+.calendar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.calendar table {
+  width: 100%; /* 테이블의 너비를 화면에 맞춤 */
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 10px 0;
+  font-size: 1.8rem;
+}
+
+.calendar-header button {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 10px;
+  /* margin: 10px 5px; */
+  /* padding: 10px 15px; */
+  /* font-size: 14px; */
+  cursor: pointer;
+}
+#calendar-container {
+  width: 100%;
+  max-width: 600px; /* 캘린더의 최대 너비 */
+  overflow: hidden; /* 내용이 넘칠 경우 숨김 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar table {
+  table-layout: fixed; /* 테이블 셀 크기 고정 */
+  width: 100%; /* 캘린더 테이블 전체 너비 */
+  height: 100%; /* 캘린더 테이블 전체 높이 */
+  min-height: 370px; /* 캘린더의 최소 높이 */
+  border-collapse: collapse; /* 테두리 병합 */
+}
+.calendar tr {
+  height: 60px;
+}
+
+.calendar th,
+.calendar td {
+  text-align: center;
+  padding: 10px 0;
+  border: 1px solid #ccc;
+  word-wrap: break-word; /* 텍스트가 길 경우 줄바꿈 */
+  overflow: hidden; /* 내용이 넘칠 경우 숨김 */
+}
+
+.calendar th {
+  background-color: #f0f0f0;
+}
+
+.calendar td.today {
+  background-color: #ffeeba;
+  font-weight: bold;
+}
+.calendar th.sunday,
+.calendar td.sunday {
+  background-color: #ffcccc;
+}
+
+.calendar th.saturday,
+.calendar td.saturday {
+  background-color: #cce5ff;
+}
+
+.calendar td.holiday {
+  background-color: #ffcccc;
+  font-weight: bold;
+}
+
+.day.holiday .weekday {
+  color: red !important;
+}
+
+/* 전달 날짜 */
+.prev-month {
+  color: #a0a0a0; /* 흐린 회색 */
+  background-color: #f9f9f9;
+}
+
+/* 다음 달 날짜 */
+.next-month {
+  color: #a0a0a0; /* 흐린 회색 */
+  background-color: #f9f9f9;
+}
+
+/* 전달/다음 달의 일요일 */
+.prev-month.sunday,
+.next-month.sunday {
+  background-color: #ffcccc;
+}
+
+/* 전달/다음 달의 토요일 */
+.prev-month.saturday,
+.next-month.saturday {
+  background-color: #cce5ff;
+}
+
+#calendar-container small {
+  font-weight: bold;
+  font-size: 0.7rem;
+}
+/* 부모 div (셀) */
+.calendar td {
+  position: relative; /* 부모 요소를 기준으로 absolute 위치 지정 가능 */
+  padding: 0; /* 기본 여백 제거 */
+}
+
+/* Marker (출/퇴 표시) */
+.marker {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  color: #000;
+  font-size: 0.8rem;
+  z-index: 1;
+}
+
+/* 출근 marker (왼쪽 위) */
+.marker.marker-in {
+  top: 0px;
+  left: 2px;
+}
+
+/* 퇴근 marker (왼쪽 아래) */
+.marker.marker-out {
+  bottom: 0px;
+  left: 2px;
+}
+
+/* 근무 시간 표시 박스 */
+.duration-box {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  padding: 2px 5px;
+  background-color: #cce5ff;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  color: #000;
+}
+
+.vacation-box {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  padding: 2px 5px;
+  background-color: #ffcccc;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  color: black;
+}
+
+/* 보상 휴가 신청 모달 스타일 업데이트 */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 400px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: none;
+}
+
+.modal h3 {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.modal div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.modal label {
+  /* flex: 1; -> 이 코드를 삭제하거나 주석 처리 */
+  width: 70px; /* '시작 시간'과 '종료 시간'이 깨지지 않도록 고정 너비를 설정 */
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left; /* 레이블 텍스트를 왼쪽으로 정렬 */
+}
+
+.modal select {
+  flex: 2;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #000;
+}
+
+.modal button {
+  width: 48%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal #close-modal {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* 모달 내용 */
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 닫기 버튼 */
+#close-notice {
+  width: 100%;
+  margin-top: 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#close-notice:hover {
+  background-color: #0056b3;
+}
+
+#save-vacation {
+  background-color: #1a73e8;
+  color: white;
+}
+
+#cancel-vacation {
+  background-color: #f44336;
+  color: white;
+}
+
+/* 버튼 호버 효과 */
+#save-vacation:hover {
+  background-color: #0056b3;
+}
+#cancel-vacation:hover {
+  background-color: #90241c;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+}
+
+/* login page */
+.loginSectionContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.signin-section {
+  padding: 2rem;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.signin-section h2 {
+  margin-bottom: 20px;
+}
+/* .welcome-section {
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  color: #ffffff;
+  text-align: center;
+} */
+.input-group {
+  margin-bottom: 1rem;
+}
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.input-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+.sign-in-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #ff4b2b;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+.forgot-password {
+  color: #ff4b2b;
+  text-decoration: none;
+}
+.sign-up-btn {
+  padding: 0.75rem 2rem;
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 2rem;
+  font-size: 1rem;
+}
+.sign-up-btn:hover {
+  background-color: #ffffff;
+  color: #ff4b2b;
+}
+
+#installButton {
+  align-items: end;
+  justify-content: center;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: gray;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  /* position: fixed; */
+  bottom: 0;
+}
+
+/* 연차 신청 모달 스타일 조정 */
+#annual-vacation-modal {
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* 입력 필드 스타일 */
+#annual-vacation-modal input[type="number"],
+#annual-vacation-modal select {
+  width: 60px; /* 입력 필드 크기 조정 */
+  height: 30px;
+  font-size: 16px;
+  padding: 3px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+/* 선택 드롭다운 스타일 */
+#annual-vacation-modal select {
+  width: 80px;
+  height: 34px;
+  font-size: 14px;
+}
+
+/* 버튼 스타일 조정 */
+#save-annual-vacation,
+#cancel-annual-vacation {
+  width: 100px;
+  height: 50px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+#save-annual-vacation {
+  background-color: #1a73e8;
+  color: white;
+}
+
+#cancel-annual-vacation {
+  background-color: #f44336;
+  color: white;
+}
+
+/* 버튼 호버 효과 */
+#save-annual-vacation:hover {
+  background-color: #0056b3;
+}
+#cancel-annual-vacation:hover {
+  background-color: #90241c;
+}
+
+/* 버튼 비활성화 스타일 */
+#save-annual-vacation:disabled,
+#cancel-annual-vacation:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* GPS 로딩 모달 오버레이 */
+#gps-loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+/* GPS 로딩 모달 */
+#gps-loading-modal {
+  display: none;
+  width: 90%;
+  max-width: 350px;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+#gps-loading-message {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* 로딩 페이지 */
+#loading-screen {
+  /* 기존 스타일 유지 */
+  transition: opacity 0.5s ease-out; /* 0.5초 동안 투명도 변화 */
+  opacity: 1; /* 기본값은 불투명 */
+}
+
+#loading-screen.hidden {
+  opacity: 0; /* 완전히 투명 */
+  pointer-events: none; /* 클릭 이벤트 방지 (투명해도 클릭 가능) */
+}

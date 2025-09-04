@@ -1,0 +1,884 @@
+/* 출퇴근 현황 전용 스타일 - 2025.08.20 17:45 수정 */
+/* HTML 클래스명과 일치하도록 전면 재작성 */
+
+/* ==================== 필터 컨트롤 ==================== */
+.worktime-filter-controls {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 2rem;
+  border: 1px solid #e5e7eb;
+}
+
+.worktime-filter-row {
+  display: flex;
+  align-items: end;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.worktime-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 120px;
+}
+
+.worktime-filter-group.wide {
+  min-width: 160px;
+}
+
+.worktime-filter-label {
+  font-weight: 600;
+  color: var(--color-gray-700);
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.worktime-filter-select,
+.worktime-filter-input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-gray-300);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  background: white;
+  transition: all 0.2s ease;
+  min-height: 38px;
+}
+
+.worktime-filter-select:focus,
+.worktime-filter-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.worktime-filter-select:hover,
+.worktime-filter-input:hover {
+  border-color: #9ca3af;
+}
+
+.worktime-filter-btn {
+  padding: 0.5rem 1.5rem;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 38px;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.worktime-filter-btn:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* 커스텀 날짜 입력 필드 */
+.custom-date-inputs {
+  display: none;
+  gap: 0.5rem;
+  align-items: end;
+}
+
+.custom-date-inputs.show {
+  display: flex;
+}
+
+.date-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.date-input-label {
+  font-size: 0.75rem;
+  color: var(--color-gray-600);
+  font-weight: 500;
+}
+
+.filter-section {
+  display: flex;
+  gap: 1rem;
+  align-items: end;
+}
+
+.filter-section.primary {
+  border-right: 2px solid #e5e7eb;
+  padding-right: 2rem;
+}
+
+/* ==================== 통계 카드 ==================== */
+.worktime-stats-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.worktime-stats-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.worktime-stats-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.15);
+}
+
+.worktime-stats-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.worktime-stats-card.success::before {
+  background: var(--color-success);
+}
+.worktime-stats-card.warning::before {
+  background: var(--color-warning);
+}
+.worktime-stats-card.danger::before {
+  background: var(--color-danger);
+}
+
+/* 카드 헤더 및 컨텐츠 */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  font-size: 0.9rem;
+  color: var(--color-gray-600);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.card-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: white;
+}
+
+.card-icon.success {
+  background: var(--color-success);
+}
+.card-icon.warning {
+  background: var(--color-warning);
+}
+.card-icon.danger {
+  background: var(--color-danger);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.main-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-gray-800);
+}
+
+.sub-values {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sub-value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  background: var(--color-gray-50);
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.sub-value-label {
+  color: var(--color-gray-600);
+  font-weight: 500;
+}
+
+.sub-value-number {
+  color: var(--color-gray-800);
+  font-weight: 600;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.status-item {
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: var(--color-gray-50);
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.status-item.office {
+  border-color: var(--color-success);
+  background: #ecfdf5;
+}
+
+.status-item.field {
+  border-color: var(--color-warning);
+  background: #fffbeb;
+}
+
+.status-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-gray-800);
+  margin-bottom: 0.25rem;
+}
+
+.status-label {
+  font-size: 0.75rem;
+  color: var(--color-gray-600);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.period-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.period-tab {
+  flex: 1;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-gray-600);
+  background: var(--color-gray-100);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.period-tab.active {
+  background: var(--color-warning);
+  color: white;
+}
+
+.period-tab:hover:not(.active) {
+  background: var(--color-gray-200);
+}
+
+.overtime-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+  border-radius: 8px;
+}
+
+.overtime-label {
+  font-size: 0.8rem;
+  color: var(--color-gray-700);
+  font-weight: 500;
+}
+
+.overtime-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-danger);
+}
+
+.change-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.change-indicator.positive {
+  color: var(--color-success);
+}
+.change-indicator.negative {
+  color: var(--color-danger);
+}
+.change-indicator::before {
+  content: "↗";
+}
+.change-indicator.negative::before {
+  content: "↘";
+}
+
+/* ==================== 데이터 컨테이너 ==================== */
+.worktime-data-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+}
+
+.worktime-chart-container,
+.worktime-table-container {
+  background: white;
+  padding: var(--spacing-xl);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-gray-200);
+  transition: var(--transition-default);
+}
+
+.worktime-chart-container:hover,
+.worktime-table-container:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.worktime-section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-gray-800);
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.worktime-section-title::before {
+  content: "";
+  width: 4px;
+  height: 20px;
+  background: var(--color-primary);
+  border-radius: 2px;
+}
+
+#worktime-chart {
+  max-height: 300px;
+}
+
+/* ==================== 테이블 스타일 ==================== */
+.table-wrapper {
+  max-height: 350px;
+  overflow-y: auto;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--border-radius);
+}
+
+.worktime-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.worktime-data-table th,
+.worktime-data-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--color-gray-100);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.worktime-data-table thead th {
+  background-color: #f9fafb;
+  color: #374151;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border-bottom: 2px solid var(--color-gray-200);
+  text-align: center;
+}
+
+.worktime-data-table td:nth-child(1),
+.worktime-data-table td:nth-child(2),
+.worktime-data-table td:nth-child(3),
+.worktime-data-table td:nth-child(4),
+.worktime-data-table td:nth-child(5),
+.worktime-data-table td:nth-child(6),
+.worktime-data-table td:nth-child(7) {
+  text-align: center;
+  padding-right: 15px;
+}
+
+.worktime-data-table tbody tr:hover {
+  background-color: var(--color-primary-light);
+}
+
+.worktime-data-table tr.holiday-row {
+  background-color: #fffbeb;
+  color: #92400e;
+}
+.worktime-data-table tr.holiday-row:hover {
+  background-color: #fef3c7;
+}
+
+.day-type-badge {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-block;
+  min-width: 40px;
+  text-align: center;
+}
+
+.day-type-badge.weekday {
+  background-color: #e0e7ff;
+  color: #4338ca;
+}
+
+.day-type-badge.holiday {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.table-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+.table-wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* ==================== GPS 섹션 ==================== */
+.worktime-gps-section {
+  background: white;
+  padding: var(--spacing-xl);
+  border-radius: 15px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-gray-200);
+  margin-bottom: var(--spacing-xl);
+}
+
+.worktime-gps-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.worktime-gps-map {
+  width: 100%;
+  height: 750px;
+  background: var(--color-gray-50);
+  border: 2px dashed var(--color-gray-200);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-400);
+  font-size: 1.1rem;
+  transition: var(--transition-default);
+}
+
+.worktime-gps-map:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* GPS 네비게이션 버튼 */
+.gps-date-picker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+
+#gps-current-date {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-gray-800);
+  background: var(--color-gray-100);
+  padding: 0.5rem 1.25rem;
+  border-radius: 10px;
+  border: 1px solid var(--color-gray-300);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.gps-nav-btn {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.gps-nav-btn:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+}
+
+#reset-map-view-btn {
+  background: var(--color-gray-600);
+}
+
+/* ==================== 지도 라벨 및 배지 ==================== */
+.map-label {
+  border-radius: 20px;
+  padding: 4px 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  white-space: nowrap;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.gps-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 9999px;
+  margin-left: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* ==================== 모달 스타일 - 2025.08.20 17:45 수정 ==================== */
+.custom-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-modal.flex {
+  display: flex;
+}
+
+.custom-modal-content {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 1200px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.custom-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.custom-modal-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-gray-800);
+}
+
+.custom-modal-header button {
+  background: var(--color-gray-100);
+  border: 1px solid var(--color-gray-300);
+  border-radius: 6px;
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--color-gray-600);
+}
+
+.custom-modal-header button:hover {
+  background: var(--color-gray-200);
+  color: var(--color-gray-800);
+}
+
+.custom-modal-body {
+  max-height: calc(85vh - 120px);
+  overflow-y: auto;
+}
+
+/* ==================== 모달별 테이블 스타일 - 2025.08.20 17:45 신규 생성 ==================== */
+
+/* 출퇴근 상세 모달 테이블 (6컬럼: 이름, 부서, 직급, 위치유형, 좌표, 시간) */
+.attendance-modal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  background: white;
+}
+
+.attendance-modal-table th,
+.attendance-modal-table td {
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--color-gray-200);
+  text-align: center;
+  vertical-align: top;
+}
+
+.attendance-modal-table thead th {
+  background: #f8fafc;
+  color: #374151;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border-bottom: 2px solid var(--color-gray-300);
+  white-space: nowrap;
+  text-align: center !important;
+  vertical-align: middle;
+  padding: 12px 8px;
+}
+
+/* 출퇴근 모달 컬럼 너비 최적화 - 2025.08.20 17:50 수정: 좌표 컬럼 확대 */
+.attendance-modal-table th:nth-child(1),
+.attendance-modal-table td:nth-child(1) { width: 12%; text-align: center; } /* 이름 */
+.attendance-modal-table th:nth-child(2),
+.attendance-modal-table td:nth-child(2) { width: 15%; text-align: center; } /* 부서 */
+.attendance-modal-table th:nth-child(3),
+.attendance-modal-table td:nth-child(3) { width: 10%; text-align: center; } /* 직급 */
+.attendance-modal-table th:nth-child(4),
+.attendance-modal-table td:nth-child(4) { width: 13%; text-align: center; } /* 위치유형 */
+.attendance-modal-table th:nth-child(5),
+.attendance-modal-table td:nth-child(5) { 
+  width: 35%; 
+  text-align: center;
+  white-space: normal; 
+  word-wrap: break-word;
+  line-height: 1.3;
+  min-width: 200px;
+} /* 좌표/주소 - 확대 및 줄바꿈 허용 */
+.attendance-modal-table th:nth-child(6),
+.attendance-modal-table td:nth-child(6) { width: 15%; text-align: center; } /* 시간 */
+
+/* 헤더 텍스트 중앙 정렬 강화 - 2025.08.20 17:55 추가 */
+.attendance-modal-table th:nth-child(5) {
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+/* 휴가자 상세 모달 테이블 (7컬럼: 이름, 부서, 직급, 휴가종류, 시작, 종료, 날짜) */
+.vacation-modal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  background: white;
+}
+
+.vacation-modal-table th,
+.vacation-modal-table td {
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--color-gray-200);
+  text-align: center;
+  vertical-align: middle;
+}
+
+.vacation-modal-table thead th {
+  background: #fefce8;
+  color: #374151;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border-bottom: 2px solid #fbbf24;
+  white-space: nowrap;
+}
+
+/* 휴가자 모달 컬럼 너비 최적화 */
+.vacation-modal-table th:nth-child(1),
+.vacation-modal-table td:nth-child(1) { width: 12%; } /* 이름 */
+.vacation-modal-table th:nth-child(2),
+.vacation-modal-table td:nth-child(2) { width: 15%; } /* 부서 */
+.vacation-modal-table th:nth-child(3),
+.vacation-modal-table td:nth-child(3) { width: 10%; } /* 직급 */
+.vacation-modal-table th:nth-child(4),
+.vacation-modal-table td:nth-child(4) { width: 15%; } /* 휴가종류 */
+.vacation-modal-table th:nth-child(5),
+.vacation-modal-table td:nth-child(5) { width: 16%; } /* 시작 */
+.vacation-modal-table th:nth-child(6),
+.vacation-modal-table td:nth-child(6) { width: 16%; } /* 종료 */
+.vacation-modal-table th:nth-child(7),
+.vacation-modal-table td:nth-child(7) { width: 16%; } /* 날짜 */
+
+/* 일자별 상세 현황 테이블 (기존 스타일 유지하되 클래스명 추가) */
+.worktime-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.worktime-detail-table th,
+.worktime-detail-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--color-gray-100);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.worktime-detail-table thead th {
+  background-color: #f0f9ff;
+  color: #374151;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border-bottom: 2px solid #3b82f6;
+  text-align: center;
+}
+
+/* 일자별 상세 현황 컬럼 너비 최적화 */
+.worktime-detail-table th:nth-child(1),
+.worktime-detail-table td:nth-child(1) { width: 15%; text-align: center; } /* 날짜 */
+.worktime-detail-table th:nth-child(2),
+.worktime-detail-table td:nth-child(2) { width: 15%; text-align: center; } /* 구분 */
+.worktime-detail-table th:nth-child(3),
+.worktime-detail-table td:nth-child(3) { width: 20%; text-align: center; } /* 직원명 */
+.worktime-detail-table th:nth-child(4),
+.worktime-detail-table td:nth-child(4) { width: 25%; text-align: center; } /* GPS건수 */
+.worktime-detail-table th:nth-child(5),
+.worktime-detail-table td:nth-child(5) { width: 25%; text-align: center; } /* 이동거리 */
+
+/* 모달 테이블 공통 호버 효과 */
+.attendance-modal-table tbody tr:hover,
+.vacation-modal-table tbody tr:hover {
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+/* 모달별 스크롤바 스타일 */
+.custom-modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+.custom-modal-body::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+.custom-modal-body::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+.custom-modal-body::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ==================== 로딩 상태 ==================== */
+.worktime-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: var(--color-gray-500);
+  font-style: italic;
+}
+
+.worktime-loading::after {
+  content: '...';
+  animation: loading-dots 1.5s infinite;
+}
+
+@keyframes loading-dots {
+  0%, 20% { content: '...'; }
+  40% { content: '....'; }
+  60% { content: '.....'; }
+  80%, 100% { content: '...'; }
+}
+
+/* ==================== 반응형 디자인 ==================== */
+@media (max-width: 768px) {
+  .worktime-stats-cards {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .worktime-filter-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .worktime-data-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .worktime-gps-map {
+    height: 400px;
+  }
+  
+  .gps-date-picker {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .custom-modal-content {
+    width: 95%;
+    padding: 1rem;
+    max-width: 95vw;
+  }
+  
+  .worktime-data-table,
+  .attendance-modal-table,
+  .vacation-modal-table,
+  .worktime-detail-table {
+    font-size: 0.75rem;
+  }
+  
+  .worktime-data-table th,
+  .worktime-data-table td,
+  .attendance-modal-table th,
+  .attendance-modal-table td,
+  .vacation-modal-table th,
+  .vacation-modal-table td,
+  .worktime-detail-table th,
+  .worktime-detail-table td {
+    padding: 8px 6px;
+  }
+}
