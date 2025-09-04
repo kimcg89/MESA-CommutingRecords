@@ -67,8 +67,7 @@ build/
 
 
 #scripts
-scripts/multi-app-build.js
-scripts/simple-firebase-build.js
+scripts/
 
 # Firebase cache
 .firebase/
@@ -113,4 +112,4 @@ andstu/
 
 
 #txt
-readme.txt
+readme/
