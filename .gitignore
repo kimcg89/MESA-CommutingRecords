@@ -65,6 +65,7 @@ node_modules/
 dist/
 build/
 
+
 #scripts
 scripts/multi-app-build.js
 scripts/simple-firebase-build.js
