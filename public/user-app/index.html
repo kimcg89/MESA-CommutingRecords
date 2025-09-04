@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>출퇴근 기록기</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/overtime-modal.css" />
+    <link rel="stylesheet" href="css/overnight-modal.css" />
+    <link rel="stylesheet" href="css/monthly-report-modal.css" />
+    <link rel="stylesheet" href="css/work-report-modal.css" />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       rel="stylesheet"
@@ -30,8 +34,8 @@
           ? "js/config/firebase-api-config.dev.js" // 개발용
           : "js/config/firebase-api-config.js"; // 배포용 (빌드 시 생성)
 
-        console.log("🔧 Firebase 설정 로딩:", scriptSrc);
-        console.log("📍 환경 감지:", {
+        console.log("Firebase 설정 로딩:", scriptSrc);
+        console.log("환경 감지:", {
           hostname: window.location.hostname,
           port: window.location.port,
           isDevelopment: isDevelopment,
@@ -113,11 +117,36 @@
     <script src="js/attendance/work-time-calculator.js"></script>
     <script src="js/attendance/attendance-core.js"></script>
     <script src="js/attendance/attendance-ui.js"></script>
+    <script src="js/ui/modals/attendance/overnightWorkModal.js"></script>
     <!-- 휴가 관리 파일 -->
     <script src="js/leave/vacation-utils.js"></script>
     <script src="js/leave/vacation-ui.js"></script>
     <script src="js/leave/vacation-firestore.js"></script>
     <script src="js/leave/vacation-core.js"></script>
+    <!-- 연장근무신청 모듈들 -->
+    <script src="js/overtime/overtime-calendar.js"></script>
+    <script src="js/overtime/overtime-firestore.js"></script>
+    <script src="js/overtime/overtime-core.js"></script>
+    <script src="js/overtime/overtime-ui.js"></script>
+    <script src="js/overtime/overtime-integration.js"></script>
+
+    <!-- 월간 근무 내역 모듈들 (새로 추가) -->
+    <script src="js/report/monthly-report-integration.js"></script>
+    <script src="js/report/monthly-report-ui.js"></script>
+    <script src="js/report/monthly-report-calendar.js"></script>
+    <script src="js/report/monthly-report-firestore.js"></script>
+    <script src="js/report/monthly-report-core.js"></script>
+
+    <!-- work-report 전용 스타일/스크립트 (2025-09-01 15:00 KST 생성됨) -->
+    
+
+    <script src="js/work-report/work-report-core.js" defer></script>
+    <script src="js/work-report/work-report-adapter.js" defer></script>
+    <script src="js/work-report/work-report-ui.js" defer></script>
+    <script
+      src="js/work-report/work-report-integration.js"
+      defer
+    ></script>
 
     <!-- 잔량 관리 파일 -->
     <script src="js/leave/leave-balance.js"></script>
@@ -174,15 +203,15 @@
       <div class="bottom">
         <div class="button" id="applyVacation">
           <img src="./image/Airplane Square.png" alt="" />
-          <p>연차신청</p>
+          <p>보상휴가신청</p>
         </div>
         <div class="button">
           <img src="./image/Edit.png" alt="" />
-          <p>연장근무신청(X)</p>
+          <p>연장근무신청</p>
         </div>
         <div class="button">
           <img src="./image/Note Favorite.png" alt="" />
-          <p>근무현황(X)</p>
+          <p>근무현황</p>
         </div>
       </div>
 
@@ -191,7 +220,8 @@
           <div class="header-content">
             <h2>출퇴근 등록</h2>
             <div class="info-btnContainer">
-              <div class="annualLeave" id="annualLeave">
+              <!-- 잔여 연차 미표기 중 -->
+              <div class="annualLeave" id="annualLeave" style="display: none">
                 <p>잔여 연차 수</p>
                 <p>15일</p>
               </div>
@@ -231,9 +261,9 @@
             <div>2025.01.20 ~ 2025.01.26</div>
             <div><i class="fa-solid fa-caret-right"></i></div>
           </div>
-          <div class="monthlyCalendar">
+          <div class="monthlyCalendar" id="monthlyCalendarBtn">
             <i class="fa-solid fa-calendar-days"></i>
-            <p>월간근무내역(X)</p>
+            <p>월간근무내역</p>
           </div>
           <div class="weeklyTable">
             <div class="day sunday">
@@ -366,6 +396,7 @@
         </main>
       </div>
 
+      <!-- 캘린더 페이지 미 사용 중 -->
       <div class="calendarPageContainer" style="display: none">
         <div class="info-btnContainer">
           <div class="annualLeave">
@@ -391,6 +422,7 @@
         </div>
       </div>
 
+      <!-- 보상휴가 신청 모달 -->
       <div class="modal-overlay" id="modal-overlay"></div>
       <div class="modal" id="vacation-modal">
         <h3>보상 휴가 신청</h3>
@@ -427,6 +459,7 @@
         <button id="cancel-vacation">취소</button>
       </div>
 
+      <!-- 출퇴근 모달 -->
       <div class="modal" id="attendance-modal">
         <button id="save-vacation">저장</button>
         <button id="cancel-vacation">취소</button>
@@ -438,6 +471,7 @@
         </div>
       </div>
 
+      <!-- 연차 휴가 신청 모달 -->
       <div class="modal-overlay" id="modal-overlay-annual"></div>
       <div class="modal" id="annual-vacation-modal">
         <h3>연차 휴가 신청</h3>
@@ -466,13 +500,287 @@
         <button id="cancel-annual-vacation">취소</button>
       </div>
 
+      <!-- gps 로딩 모달 -->
       <div class="modal-overlay" id="gps-loading-overlay" style="display: none">
         <div class="modal" id="gps-loading-modal">
           <p id="gps-loading-message">위치 정보를 가져오는 중...</p>
         </div>
       </div>
+
+      <!-- 연장근무신청 모달 -->
+      <div class="modal-overlay" id="modal-overlay-overtime"></div>
+      <div class="modal" id="overtime-modal">
+        <h3>연장근무신청</h3>
+
+        <!-- 달력 섹션 -->
+        <div class="overtime-calendar-section">
+          <div class="overtime-calendar-header">
+            <button class="overtime-calendar-nav" id="overtime-prev-month">
+              ◀
+            </button>
+            <div
+              class="overtime-calendar-title"
+              id="overtime-calendar-title"
+            ></div>
+            <button class="overtime-calendar-nav" id="overtime-next-month">
+              ▶
+            </button>
+          </div>
+          <div class="overtime-calendar">
+            <div class="overtime-calendar-weekdays">
+              <div class="overtime-weekday">일</div>
+              <div class="overtime-weekday">월</div>
+              <div class="overtime-weekday">화</div>
+              <div class="overtime-weekday">수</div>
+              <div class="overtime-weekday">목</div>
+              <div class="overtime-weekday">금</div>
+              <div class="overtime-weekday">토</div>
+            </div>
+            <div
+              class="overtime-calendar-days"
+              id="overtime-calendar-days"
+            ></div>
+          </div>
+        </div>
+
+        <!-- 선택된 날짜 표시 -->
+        <div class="overtime-selected-date" id="overtime-selected-date"></div>
+
+        <!-- 시간 선택 -->
+        <div class="overtime-form-section">
+          <label>연장근무 시간 *</label>
+          <div class="overtime-time-select-group">
+            <div class="time-input-wrapper">
+              <label>시간</label>
+              <select id="overtime-hours" class="overtime-time-select">
+                <option value="">선택</option>
+                <option value="0">0시간</option>
+                <option value="1">1시간</option>
+                <option value="2">2시간</option>
+                <option value="3">3시간</option>
+                <option value="4">4시간</option>
+                <option value="5">5시간</option>
+                <option value="6">6시간</option>
+                <option value="7">7시간</option>
+                <option value="8">8시간</option>
+              </select>
+            </div>
+            <div class="time-separator">:</div>
+            <div class="time-input-wrapper">
+              <label>분</label>
+              <select id="overtime-minutes" class="overtime-time-select">
+                <option value="0">0분</option>
+                <option value="30">30분</option>
+              </select>
+            </div>
+          </div>
+          <div class="error-message" id="overtime-time-error">
+            연장근무 시간을 선택해주세요.
+          </div>
+        </div>
+
+        <!-- 고객사 입력 -->
+        <div class="overtime-form-section">
+          <label for="overtime-client-input">고객사</label>
+          <input
+            type="text"
+            id="overtime-client-input"
+            class="overtime-client-input"
+            placeholder="고객사명을 입력하세요 (선택사항)"
+          />
+        </div>
+
+        <!-- 사유 입력 -->
+        <div class="overtime-form-section">
+          <label for="overtime-reason-textarea">연장근무 사유 *</label>
+          <textarea
+            id="overtime-reason-textarea"
+            class="overtime-reason-textarea"
+            placeholder="연장근무 사유를 상세히 입력해주세요"
+            rows="4"
+          ></textarea>
+          <div class="error-message" id="overtime-reason-error">
+            연장근무 사유를 입력해주세요.
+          </div>
+        </div>
+
+        <!-- 버튼 -->
+        <div class="overtime-button-section">
+          <button id="save-overtime" class="overtime-save-btn">저장</button>
+          <button id="cancel-overtime" class="overtime-cancel-btn">취소</button>
+        </div>
+      </div>
+
+      <!-- 월간 근무 내역 모달 -->
+      <div class="modal-overlay" id="modal-overlay-monthly-report"></div>
+      <div class="monthly-report-modal" id="monthly-report-modal">
+        <!-- 모달 헤더 -->
+        <div class="monthly-report-header">
+          <h3>월간 근무 내역</h3>
+          <button class="monthly-report-close-btn" id="close-monthly-report">
+            ×
+          </button>
+        </div>
+
+        <!-- 모달 컨텐츠 -->
+        <div class="monthly-report-content">
+          <!-- 상단 통계 카드 영역 -->
+          <div class="monthly-report-stats-section">
+            <div class="monthly-report-stats-cards">
+              <div class="monthly-report-stat-card total-work">
+                <h4>총 근무시간</h4>
+                <div class="stat-value" id="monthly-total-work">
+                  0<span class="stat-unit">시간</span>
+                </div>
+              </div>
+              <div class="monthly-report-stat-card standard-work">
+                <h4>기준근무시간</h4>
+                <div class="stat-value" id="monthly-standard-work">
+                  0<span class="stat-unit">시간</span>
+                </div>
+              </div>
+              <div class="monthly-report-stat-card overtime-work">
+                <h4>초과근무시간</h4>
+                <div class="stat-value" id="monthly-overtime-work">
+                  0<span class="stat-unit">시간</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 월간 프로그레스 바 영역 -->
+          <div class="monthly-report-progress-section">
+            <div class="monthly-report-progress-title">월간 근무 진행률</div>
+            <div class="monthly-report-progress-bar">
+              <div
+                class="monthly-completed"
+                id="monthly-progress-completed"
+              ></div>
+              <div
+                class="monthly-remaining"
+                id="monthly-progress-remaining"
+              ></div>
+              <div
+                class="monthly-standard-line"
+                id="monthly-progress-standard"
+              ></div>
+            </div>
+            <div class="monthly-report-progress-hours">
+              <div class="work-time" id="monthly-progress-current">0시간</div>
+              <div class="standard-time" id="monthly-progress-standard-text">
+                기준
+              </div>
+              <div class="max-time" id="monthly-progress-max">최대</div>
+            </div>
+          </div>
+
+          <!-- 달력 네비게이션 영역 -->
+          <div class="monthly-report-nav-section">
+            <div class="monthly-report-nav-controls">
+              <button
+                class="monthly-report-nav-btn"
+                id="monthly-report-prev-month"
+              >
+                ◀
+              </button>
+              <div
+                class="monthly-report-current-month"
+                id="monthly-report-current-month"
+              >
+                2025년 8월
+              </div>
+              <button
+                class="monthly-report-nav-btn"
+                id="monthly-report-next-month"
+              >
+                ▶
+              </button>
+            </div>
+          </div>
+
+          <!-- 달력 영역 -->
+          <div class="monthly-report-calendar-section">
+            <table class="monthly-report-calendar">
+              <thead>
+                <tr>
+                  <th>일</th>
+                  <th>월</th>
+                  <th>화</th>
+                  <th>수</th>
+                  <th>목</th>
+                  <th>금</th>
+                  <th>토</th>
+                </tr>
+              </thead>
+              <tbody id="monthly-report-calendar-body">
+                <!-- 달력 날짜들이 동적으로 생성됩니다 -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 히스토리 영역 -->
+          <div class="monthly-report-history-section">
+            <div class="monthly-report-history-header">
+              <h4>근무 내역</h4>
+              <div
+                class="monthly-report-selected-date"
+                id="monthly-report-selected-date"
+                style="display: none"
+              ></div>
+            </div>
+            <div
+              class="monthly-report-history-list"
+              id="monthly-report-history-list"
+            >
+              <div class="monthly-report-empty-history">
+                달력에서 날짜를 선택하면 해당일의 근무 내역을 볼 수 있습니다.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work Report Modal (2025-09-01 15:00 KST 생성됨) -->
+<div class="work-report-overlay" id="work-report-overlay" style="display:none"></div>
+<div class="work-report-modal" id="work-report-modal" style="display:none">
+  <div class="wr-header">
+    <button class="wr-nav" id="wr-year-prev" aria-label="이전 연도">◀</button>
+    <h3 class="wr-title">근무현황 <span id="wr-year-label">2025</span></h3>
+    <button class="wr-nav" id="wr-year-next" aria-label="다음 연도">▶</button>
+    <button class="wr-close" id="wr-close" aria-label="닫기">×</button>
+  </div>
+
+  <div class="wr-content">
+    <!-- KPI 4 카드 -->
+    <section class="wr-kpis">
+      <div class="wr-kpi k-total">
+        <div class="k-label">총 근무시간</div>
+        <div class="k-value" id="wr-kpi-total">0:00</div>
+      </div>
+      <div class="wr-kpi k-avg">
+        <div class="k-label">월 평균 근무시간</div>
+        <div class="k-value" id="wr-kpi-avg">0:00</div>
+      </div>
+      <div class="wr-kpi k-comp">
+        <div class="k-label">총 누적 보상휴가</div>
+        <div class="k-value" id="wr-kpi-comp">0일</div>
+      </div>
+      <div class="wr-kpi k-annual">
+        <div class="k-label">사용 연차휴가</div>
+        <div class="k-value" id="wr-kpi-annual">0일</div>
+      </div>
+    </section>
+
+    <!-- 월별 카드 리스트 -->
+    <section class="wr-months" id="wr-months-list">
+      <!-- JS로 1월 ~ 마지막 유효월까지 동적 렌더 -->
+    </section>
+  </div>
+</div>
+
     </div>
 
+    <!-- 로그인 페이지 -->
     <div class="loginSectionContainer">
       <div class="login-container">
         <div class="signin-section">

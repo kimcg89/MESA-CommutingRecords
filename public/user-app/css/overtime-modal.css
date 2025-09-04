@@ -1,0 +1,480 @@
+/* 
+ * 연장근무신청 모달 전용 CSS (현재 HTML 구조 기반)
+ * 생성일: 2025년 8월 25일 15:45
+ * 파일명: overtime-modal.css  
+ * 용도: 기존 .modal 클래스를 상속하면서 연장근무 전용 스타일 추가
+ */
+
+/* ====================================
+   연장근무신청 모달 전용 확장 스타일
+   (기존 .modal 클래스 상속)
+==================================== */
+
+/* 연장근무 모달 크기 및 스크롤 조정 */
+#overtime-modal {
+    max-width: 450px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 25px;
+}
+
+/* 연장근무 모달 내부 div 스타일 재정의 (2025년 8월 25일 17:10 수정됨) */
+#overtime-modal div {
+    display: block !important; /* 기존 flex 스타일 오버라이드 */
+    margin-bottom: 0px;
+}
+#overtime-modal label {
+    width: 100px;
+    margin-top: 10px;
+}
+
+/* 특정 요소들만 flex 적용 */
+#overtime-modal .overtime-time-select-group {
+    display: flex !important;
+}
+
+#overtime-modal .overtime-calendar-header {
+    display: flex !important;
+}
+
+#overtime-modal .overtime-calendar-weekdays {
+    display: grid !important;
+}
+
+#overtime-modal .overtime-calendar-days {
+    display: grid !important;
+}
+
+#overtime-modal h3 {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+    border-bottom: 2px solid #1a73e8;
+    padding-bottom: 10px;
+}
+
+/* ====================================
+   달력 섹션 (개선된 디자인)
+==================================== */
+.overtime-calendar-section {
+    margin-bottom: 20px;
+}
+
+.overtime-calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    background-color: #f8f9fa;
+    padding: 12px 16px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.overtime-calendar-nav {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #1a73e8;
+    transition: all 0.2s ease;
+    font-weight: bold;
+}
+
+.overtime-calendar-nav:hover {
+    background-color: #e8f0fe;
+    transform: scale(1.1);
+}
+
+.overtime-calendar-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    min-width: 120px;
+    text-align: center;
+}
+
+.overtime-calendar {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.overtime-calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background-color: #f1f3f4;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.overtime-weekday {
+    padding: 12px 8px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;
+    color: #5f6368;
+    border-right: 1px solid #e0e0e0;
+}
+
+.overtime-weekday:last-child {
+    border-right: none;
+}
+
+/* 일요일과 토요일 헤더 색상 */
+.overtime-weekday:first-child {
+    color: #ff4444;
+}
+
+.overtime-weekday:last-child {
+    color: #4444ff;
+}
+
+.overtime-calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background-color: #f0f0f0;
+    gap: 1px;
+}
+
+.overtime-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: white;
+    border: none;
+    position: relative;
+}
+
+.overtime-day:hover:not(.other-month):not(.past-date) {
+    background-color: #e8f0fe;
+    transform: scale(1.05);
+    z-index: 1;
+    box-shadow: 0 2px 8px rgba(26, 115, 232, 0.3);
+}
+
+.overtime-day.selected {
+    background-color: #1a73e8 !important;
+    color: white !important;
+    font-weight: bold;
+    transform: scale(1.05);
+    z-index: 2;
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.5);
+}
+
+.overtime-day.other-month {
+    color: #bbb;
+    background-color: #f9f9f9;
+    cursor: not-allowed;
+}
+
+.overtime-day.other-month:hover {
+    background-color: #f9f9f9;
+    transform: none;
+}
+
+.overtime-day.past-date {
+    color: #ccc;
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.overtime-day.past-date:hover {
+    background-color: #f5f5f5;
+    transform: none;
+}
+
+.overtime-day.sunday:not(.other-month):not(.selected) {
+    color: #ff4444;
+}
+
+.overtime-day.saturday:not(.other-month):not(.selected) {
+    color: #4444ff;
+}
+
+.overtime-day.today:not(.selected) {
+    background-color: #fff3cd;
+    border: 2px solid #ffc107;
+    font-weight: bold;
+}
+
+/* ====================================
+   선택된 날짜 표시
+==================================== */
+.overtime-selected-date {
+    background-color: #e8f0fe;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    text-align: center;
+    font-weight: bold;
+    color: #1a73e8;
+    border: 1px solid #1a73e8;
+    font-size: 14px;
+    display: none;
+}
+
+/* ====================================
+   폼 섹션 공통 스타일
+==================================== */
+.overtime-form-section {
+    margin-bottom: 18px;
+}
+
+.overtime-form-section label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+/* 필수 필드 표시 */
+.overtime-form-section label[for="overtime-time-select"]::after,
+.overtime-form-section label[for="overtime-reason-textarea"]::after {
+    content: " *";
+    color: #ff4444;
+}
+
+/* ====================================
+   시간 선택 드롭다운 (시간/분 분리)
+==================================== */
+.overtime-time-select-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.time-input-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.time-input-wrapper label {
+    font-size: 12px !important;
+    color: #666 !important;
+    margin-bottom: 4px !important;
+    font-weight: normal !important;
+}
+
+.time-input-wrapper label::after {
+    content: none !important;
+}
+
+.overtime-time-select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #333;
+    background-color: white;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.overtime-time-select:focus {
+    outline: none;
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+}
+
+.time-separator {
+    font-size: 18px;
+    font-weight: bold;
+    color: #666;
+    margin: 0 4px;
+    align-self: flex-end;
+    padding-bottom: 10px;
+}
+
+/* ====================================
+   고객사 입력 필드
+==================================== */
+.overtime-client-input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #333;
+    background-color: white;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.overtime-client-input:focus {
+    outline: none;
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+}
+
+.overtime-client-input::placeholder {
+    color: #999;
+}
+
+/* ====================================
+   사유 텍스트 영역
+==================================== */
+.overtime-reason-textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #333;
+    background-color: white;
+    transition: border-color 0.2s;
+    resize: vertical;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.overtime-reason-textarea:focus {
+    outline: none;
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+}
+
+.overtime-reason-textarea::placeholder {
+    color: #999;
+}
+
+/* ====================================
+   버튼 섹션 (기존 모달 스타일과 통일)
+==================================== */
+.overtime-button-section {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.overtime-save-btn,
+.overtime-cancel-btn {
+    width: 48%;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.overtime-save-btn {
+    background-color: #1a73e8;
+    color: white;
+}
+
+.overtime-save-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.overtime-save-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.overtime-cancel-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.overtime-cancel-btn:hover {
+    background-color: #90241c;
+    transform: translateY(-1px);
+}
+
+/* ====================================
+   필드 검증 및 오류 표시
+==================================== */
+.field-error {
+    border-color: #ff4444 !important;
+    box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.1) !important;
+}
+
+.error-message {
+    color: #ff4444;
+    font-size: 12px;
+    margin-top: 4px;
+    display: none;
+}
+
+/* ====================================
+   반응형 디자인
+==================================== */
+@media (max-width: 480px) {
+    #overtime-modal {
+        width: 95%;
+        max-width: none;
+        padding: 18px;
+        margin: 5px;
+    }
+
+    .overtime-day {
+        padding: 10px 2px;
+        font-size: 12px;
+    }
+
+    .overtime-weekday {
+        padding: 6px 2px;
+        font-size: 11px;
+    }
+
+    .overtime-calendar-title {
+        font-size: 14px;
+    }
+
+    .overtime-calendar-nav {
+        font-size: 14px;
+        padding: 4px 8px;
+    }
+
+    .overtime-button-section {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .overtime-save-btn,
+    .overtime-cancel-btn {
+        width: 100%;
+    }
+}
+
+/* 공휴일: 날짜 글자 빨간색 */
+.overtime-day.holiday:not(.other-month) {
+  color: #e53935;
+}
+
+/* 공휴일 이름을 날짜 아래에 작게 표시 */
+.overtime-day.holiday::after {
+  content: attr(data-holiday-name);
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  line-height: 1;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+#notice-modal {
+  z-index: 1001;
+}

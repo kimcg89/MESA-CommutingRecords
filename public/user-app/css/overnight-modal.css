@@ -1,0 +1,84 @@
+/* overnight-modal.css - 철야/퇴근 선택 모달 전용 스타일 (2025년 8월 26일 CSS 충돌 방지) */
+
+.overnight-modal-container {
+  text-align: center;
+  padding: 25px;
+  min-width: 300px;
+}
+
+.overnight-modal-title {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.overnight-modal-desc {
+  margin: 0 0 25px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.overnight-button-group {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.overnight-btn-custom,
+.regular-btn-custom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 15px;
+  border: 2px solid;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+  font-family: inherit;
+}
+
+.overnight-btn-custom {
+  border-color: #5B7CD1;
+  color: #5B7CD1;
+}
+
+.overnight-btn-custom:hover {
+  background: #f8f9ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(91, 124, 209, 0.3);
+}
+
+.regular-btn-custom {
+  border-color: #4CAF50;
+  color: #4CAF50;
+}
+
+.regular-btn-custom:hover {
+  background: #f8fff8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.overnight-btn-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.overnight-btn-text {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.overnight-btn-small {
+  font-size: 11px;
+  opacity: 0.8;
+  line-height: 1.3;
+  display: block;
+}

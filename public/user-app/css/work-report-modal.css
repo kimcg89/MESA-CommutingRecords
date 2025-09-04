@@ -1,0 +1,174 @@
+/* user-app/css/work-report-modal.css */
+/* work-report 모달 전용 스타일 (2025-09-01 15:00 KST 생성됨) */
+
+/* 오버레이 */
+.work-report-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 899;
+}
+
+/* 모달 */
+.work-report-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  max-width: 600px;
+  max-height: 90vh;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.2);
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 헤더 (monthly-report 계열 톤 참고) */
+.wr-header {
+  display: grid;
+  grid-template-columns: 48px 1fr 48px 48px;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px 30px 12px;
+  background: #5b7cd1; /* 참조 색상 */ /* monthly-report-modal.css 참고 */
+  color: #fff;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.wr-title {
+  text-align: center;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.wr-nav, .wr-close {
+  background: rgba(255,255,255,.12);
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+  height: 36px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.wr-nav:hover, .wr-close:hover { background: rgba(255,255,255,.2); }
+
+/* 컨텐츠 래퍼 */
+.wr-content {
+  padding: 16px;
+  overflow-y: auto;
+  background: #f8f9fa;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* KPI 4카드 */
+.wr-kpis {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.wr-kpi {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid transparent;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.06);
+}
+.wr-kpi .k-label { font-size: 12px; color:#666; margin-bottom:6px; }
+.wr-kpi .k-value { font-size: 20px; font-weight: 700; color:#333; }
+
+.wr-kpi.k-total { border-left-color:#5b7cd1; }
+.wr-kpi.k-avg   { border-left-color:#607d8b; }
+.wr-kpi.k-comp  { border-left-color:#4caf50; }
+.wr-kpi.k-annual{ border-left-color:#ff9800; }
+
+/* 월 카드 리스트 */
+.wr-months {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+/* 월 카드 */
+.wr-month-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.06);
+}
+
+.wr-month-card .m-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.wr-month-card .m-title {
+  font-weight: 800; color:#333; font-size: 16px;
+}
+
+/* 3지표 그리드 */
+.wr-month-card .m-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.m-metric { background:#fafafa; border:1px solid #eee; border-radius:8px; padding:8px; text-align:center; }
+.m-metric .m-label { font-size:11px; color:#777; margin-bottom:4px; }
+.m-metric .m-value { font-weight:700; color:#333; font-size:14px; }
+
+/* 프로그레스 바 (monthly-report 감성 참고) */
+.wr-progress {
+  position: relative;
+  height: 12px;
+  border-radius: 6px;
+  background: #e0e0e0;
+  overflow: hidden;
+}
+.wr-progress .bar {
+  position: absolute;
+  left:0; top:0; bottom:0;
+  width: 0%;
+  background: #5b7cd1;        /* 완료(파랑) */
+  transition: width .3s ease;
+}
+.wr-progress .std-line {
+  position: absolute;
+  top:0; bottom:0;
+  width: 2px;
+  background: #4caf50;        /* 기준선(초록) */
+  left: 50%;
+  transition: left .3s ease;
+  z-index: 2;
+}
+/* 눈금(옵션) */
+.wr-progress .tick {
+  position:absolute; top:0; bottom:0;
+  width:1px; background: rgba(255,255,255,.3);
+  z-index:1;
+}
+
+/* 프로그레스 하단 라벨 */
+.wr-progress-labels {
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:11px; color:#666; margin-top:6px; position:relative;
+}
+.wr-progress-labels .cur { font-weight:700; color:#5b7cd1; }
+.wr-progress-labels .std { position:absolute; left:78%; transform:translateX(-50%); font-weight:700; color:#4caf50; }
+.wr-progress-labels .max { font-weight:700; color:#ff5722; }
+
+/* 반응형 */
+@media (max-width: 480px) {
+  .wr-kpis { grid-template-columns: 1fr 1fr; gap:8px; }
+  .wr-kpi .k-value { font-size:18px; }
+}

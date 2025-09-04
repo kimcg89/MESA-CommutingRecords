@@ -537,6 +537,7 @@ main {
 .workTimeTableContainer .hours .standardTime {
   position: absolute;
   left: 67%;
+      color: #4caf50;
 }
 
 .workTimeTableContainer .hours .maxTime {
@@ -1090,7 +1091,7 @@ select:focus {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  z-index: 899;
   display: none;
 }
 
@@ -1298,4 +1299,12 @@ select:focus {
 #loading-screen.hidden {
   opacity: 0; /* 완전히 투명 */
   pointer-events: none; /* 클릭 이벤트 방지 (투명해도 클릭 가능) */
+}
+
+/* notice-message 요소 줄바꿈 스타일 추가 (2025년 8월 26일 추가됨) */
+#notice-message {
+  white-space: pre-line;
+  line-height: 1.4;
+  text-align: left;
+  font-size: 14px;
 }

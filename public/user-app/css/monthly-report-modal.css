@@ -1,0 +1,585 @@
+/* monthly-report-modal.css */
+/* 월간 근무 내역 모달 전용 스타일 (2025년 8월 27일 생성됨) */
+
+/* 월간 근무 내역 모달 기본 스타일 */
+.monthly-report-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  max-width: 550px;
+  max-height: 90vh;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 900;
+  display: none;
+  overflow: hidden;
+}
+
+/* 모달 헤더 */
+.monthly-report-header {
+  background-color: #5b7cd1;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.monthly-report-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.monthly-report-close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.monthly-report-close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+/* 모달 컨텐츠 */
+.monthly-report-content {
+  padding: 0;
+  max-height: calc(90vh - 70px);
+  overflow-y: auto;
+}
+
+/* 상단 통계 카드 영역 */
+.monthly-report-stats-section {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.monthly-report-stats-cards {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 0;
+}
+
+.monthly-report-stat-card {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  flex: 1;
+  min-width: 0;
+}
+
+.monthly-report-stat-card h4 {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  color: #666;
+  font-weight: normal;
+}
+
+.monthly-report-stat-card .stat-value {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.monthly-report-stat-card .stat-unit {
+  font-size: 12px;
+  color: #888;
+  margin-left: 2px;
+}
+
+/* 총 근무시간 카드 */
+.monthly-report-stat-card.total-work {
+  border-left: 4px solid #5b7cd1;
+}
+
+/* 기준근무시간 카드 */
+.monthly-report-stat-card.standard-work {
+  border-left: 4px solid #4caf50;
+}
+
+/* 초과근무시간 카드 */
+.monthly-report-stat-card.overtime-work {
+  border-left: 4px solid #ff9800;
+}
+
+/* 월간 프로그레스 바 영역 */
+.monthly-report-progress-section {
+  padding: 20px;
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.monthly-report-progress-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+  text-align: center;
+}
+
+/* workProgressBar 구조 참고한 월간 프로그레스 바 */
+.monthly-report-progress-bar {
+  display: flex;
+  height: 12px;
+  width: 100%;
+  background: #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.monthly-report-progress-bar .monthly-completed {
+  background: #5b7cd1;
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+.monthly-report-progress-bar .monthly-remaining {
+  background: #e0e0e0;
+}
+
+.monthly-report-progress-bar .monthly-standard-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #4caf50;
+  z-index: 2;
+  transition: left 0.3s ease;
+}
+
+/* 프로그레스 바 하단 시간 표시 */
+.monthly-report-progress-hours {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: #666;
+  position: relative;
+}
+
+.monthly-report-progress-hours .work-time {
+  font-weight: bold;
+  color: #5b7cd1;
+}
+
+.monthly-report-progress-hours .standard-time {
+  position: absolute;
+  left: 67%;
+  transform: translateX(-50%);
+  font-weight: bold;
+  color: #4caf50;
+}
+
+.monthly-report-progress-hours .max-time {
+  font-weight: bold;
+  color: #ff5722;
+}
+
+/* 달력 네비게이션 영역 */
+.monthly-report-nav-section {
+  padding: 15px 20px;
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.monthly-report-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.monthly-report-nav-btn {
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.monthly-report-nav-btn:hover {
+  background: #e0e0e0;
+  border-color: #ccc;
+}
+
+.monthly-report-current-month {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  min-width: 120px;
+  text-align: center;
+}
+
+/* 달력 영역 */
+.monthly-report-calendar-section {
+  padding: 0 20px 20px 20px;
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.monthly-report-calendar {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.monthly-report-calendar th {
+  background-color: #f8f9fa;
+  padding: 10px 4px;
+  text-align: center;
+  font-weight: bold;
+  color: #666;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.monthly-report-calendar td {
+  height: 45px;
+  width: 14.28%;
+  text-align: center;
+  vertical-align: top;
+  border: 1px solid #f0f0f0;
+  cursor: pointer;
+  position: relative;
+  padding: 2px;
+  transition: background-color 0.2s ease;
+}
+
+.monthly-report-calendar td:hover {
+  background-color: #f0f8ff;
+}
+
+/* 달력 날짜 스타일 */
+.monthly-report-calendar .date-number {
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* 이전/다음 달 날짜 */
+.monthly-report-calendar .prev-month,
+.monthly-report-calendar .next-month {
+  color: #ccc !important;
+}
+
+/* 오늘 날짜 */
+.monthly-report-calendar .today {
+  background-color: #e3f2fd;
+  border: 2px solid #2196f3;
+}
+
+.monthly-report-calendar .today .date-number {
+  color: #1976d2;
+  font-weight: bold;
+}
+
+/* 선택된 날짜 */
+.monthly-report-calendar .selected {
+  background-color: #fff3e0;
+  border: 2px solid #ff9800;
+}
+
+/* 일요일, 공휴일 */
+.monthly-report-calendar .sunday,
+.monthly-report-calendar .holiday {
+  color: #e53935 !important;
+}
+
+.monthly-report-calendar .sunday .date-number,
+.monthly-report-calendar .holiday .date-number {
+  color: #e53935 !important;
+}
+
+/* 토요일 */
+.monthly-report-calendar .saturday {
+  color: #1976d2 !important;
+}
+
+.monthly-report-calendar .saturday .date-number {
+  color: #1976d2 !important;
+}
+
+/* 달력 마커 */
+.monthly-report-calendar .work-markers {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 18px;
+  left: 2px;
+  right: 2px;
+  font-size: 8px;
+}
+
+.monthly-report-calendar .work-marker {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  color: white;
+  font-size: 7px;
+  line-height: 12px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.monthly-report-calendar .marker-start {
+  background-color: #4caf50;
+}
+
+.monthly-report-calendar .marker-end {
+  background-color: #2196f3;
+}
+
+.monthly-report-calendar .marker-vacation {
+  background-color: #ff9800;
+}
+
+.monthly-report-calendar .marker-holiday {
+  background-color: #e53935;
+}
+
+/* 히스토리 영역 - workHistoryContainer 구조 참고 */
+.monthly-report-history-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 20px; */
+  background-color: #f8f9fa;
+  /* max-height: 250px; */
+}
+
+.monthly-report-history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  overflow: hidden;
+}
+
+.monthly-report-history-header h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.monthly-report-selected-date {
+  font-size: 14px;
+  font-weight: bold;
+  color: #5b7cd1;
+  /* background-color: white; */
+  padding: 4px 8px;
+  border-radius: 4px;
+  /* border: 1px solid #e0e0e0; */
+  
+}
+
+.monthly-report-history-list {
+  width: 100%;
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px 30px;
+  border: 1px solid #e0e0e0;
+  position: relative;
+}
+
+.monthly-report-history-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px 0;
+  position: relative;
+  border-left: 2px solid #e0e0e0;
+  padding-left: 30px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.monthly-report-history-item:last-child {
+  margin-bottom: 0;
+}
+
+.monthly-report-history-item::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 15px;
+  width: 10px;
+  height: 10px;
+  background-color: #5b7cd1;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 0 1px #e0e0e0;
+}
+
+.monthly-report-history-time {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 4px;
+  min-width: 80px;
+}
+
+.monthly-report-history-detail {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.3;
+  flex: 1;
+  overflow: hidden;
+}
+
+.monthly-report-history-work-type {
+  font-size: 11px;
+  font-weight: bold;
+  margin-left: 8px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: white;
+}
+
+.monthly-report-history-work-type.office {
+  background-color: #4caf50;
+}
+
+.monthly-report-history-work-type.field {
+  background-color: #2196f3;
+}
+
+.monthly-report-history-work-type.remote {
+  background-color: #ff9800;
+}
+
+/* 빈 히스토리 상태 */
+.monthly-report-empty-history {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+  font-size: 14px;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+/* 반응형 대응 */
+@media (max-width: 480px) {
+  .monthly-report-modal {
+    width: 98%;
+    max-height: 95vh;
+  }
+  
+  .monthly-report-stats-cards {
+    flex-direction: row;
+    gap: 8px;
+  }
+  
+  .monthly-report-stat-card {
+    padding: 12px;
+  }
+  
+  .monthly-report-stat-card .stat-value {
+    font-size: 18px;
+  }
+  
+  .monthly-report-calendar td {
+    height: 35px;
+    font-size: 10px;
+  }
+  
+  .monthly-report-calendar .work-markers {
+    top: 15px;
+  }
+  
+  .monthly-report-calendar .work-marker {
+    width: 10px;
+    height: 10px;
+    font-size: 6px;
+    line-height: 10px;
+  }
+}
+
+/* 월간 근무일수 기반 프로그레스 바 눈금 (2025년 8월 29일 21:00 추가됨) */
+.monthly-progress-tick {
+  position: absolute;
+  left: 0%; /* JavaScript에서 동적으로 설정 */
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.3);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* 기준선 z-index 보장 (2025년 8월 29일 21:15 추가됨) */
+.monthly-report-progress-bar .monthly-standard-line {
+  z-index: 3; /* 눈금보다 위에 표시 */
+}
+
+/* 월간 근무 내역 Memo 버튼 스타일 (2025년 8월 29일 21:30 추가됨) */
+.monthly-report-memo-btn {
+  background-color: #5b7cd1;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 10px;
+  cursor: pointer;
+  margin-left: auto;
+  flex-shrink: 0;
+  min-width: 40px;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.monthly-report-memo-btn:hover {
+  background-color: #4a6bc2;
+}
+
+/* 히스토리 아이템 레이아웃 조정 (2025년 8월 29일 21:30 수정됨) */
+.monthly-report-history-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* 중앙 정렬 */
+  gap: 10px;
+}
+
+.monthly-report-history-content {
+  display: flex;
+  flex-direction: column; /* 세로 배치 */
+  flex: 1;
+  gap: 4px;
+}
+
+.monthly-report-history-detail {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.3;
+  flex: 1;
+  overflow: hidden;
+}
